@@ -1,15 +1,15 @@
 package com.recharged.backend.controller;
 
+import com.recharged.backend.dto.ProductRequestDTO;
 import com.recharged.backend.entity.Product;
 import com.recharged.backend.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ProductController {
     private final ProductService productService;
 
@@ -17,13 +17,21 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        throw new UnsupportedOperationException("Not implemented");
+    @PostMapping("/add/products")
+    public ResponseEntity<List<Product>> addProducts(@RequestBody List<ProductRequestDTO> productRequests) {
+        List<Product> createdProducts = productService.addProducts(productRequests);
+        return ResponseEntity.ok(createdProducts);
     }
 
-    @GetMapping
-    public List<Product> getAllProducts() {
-        throw new UnsupportedOperationException("Not implemented");
+    @GetMapping("/get/products")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.findAll();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/get/product/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+        Product product = productService.findById(id);
+        return ResponseEntity.ok(product);
     }
 }

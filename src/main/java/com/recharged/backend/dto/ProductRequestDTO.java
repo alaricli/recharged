@@ -1,27 +1,14 @@
-package com.recharged.backend.entity;
-
-import jakarta.persistence.*;
+package com.recharged.backend.dto;
 
 import java.util.List;
 
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+public class ProductRequestDTO {
     private Long id;
-    // EVGA RTX 3080 FTW3 10GB
     private String name;
-    // EVGA
     private String vendor;
-    // Gently Used
     private String condition;
-    //
-    @Column(columnDefinition = "TEXT")
     private String description;
-    // True
     private Boolean originalPackage;
-    // original everything
     private String notes;
     private String category;
     private Float cost;
@@ -32,14 +19,16 @@ public class Product {
     private String modelNumber;
     private String serialNumber;
     private String productImage;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "product_tags")
     private List<String> tags;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "product_images")
     private List<String> productImages;
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
     public Long getId() {
         return id;
@@ -81,6 +70,14 @@ public class Product {
         this.description = description;
     }
 
+    public Boolean getOriginalPackage() {
+        return originalPackage;
+    }
+
+    public void setOriginalPackage(Boolean originalPackage) {
+        this.originalPackage = originalPackage;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -111,6 +108,22 @@ public class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getItemNumber() {
+        return itemNumber;
+    }
+
+    public void setItemNumber(String itemNumber) {
+        this.itemNumber = itemNumber;
+    }
+
+    public String getUpc() {
+        return upc;
+    }
+
+    public void setUpc(String upc) {
+        this.upc = upc;
     }
 
     public String getModelNumber() {
@@ -151,37 +164,5 @@ public class Product {
 
     public void setProductImages(List<String> productImages) {
         this.productImages = productImages;
-    }
-
-    public Boolean getOriginalPackage() {
-        return originalPackage;
-    }
-
-    public void setOriginalPackage(Boolean originalPackage) {
-        this.originalPackage = originalPackage;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getItemNumber() {
-        return itemNumber;
-    }
-
-    public void setItemNumber(String itemNumber) {
-        this.itemNumber = itemNumber;
-    }
-
-    public String getUpc() {
-        return upc;
-    }
-
-    public void setUpc(String upc) {
-        this.upc = upc;
     }
 }
