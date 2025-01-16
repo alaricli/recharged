@@ -6,7 +6,6 @@ import com.recharged.backend.entity.Product;
 public class ProductRequestMapper {
     public static Product map(ProductRequestDTO dto) {
         Product product = new Product();
-        product.setId(dto.getId());
         product.setName(dto.getName());
         product.setVendor(dto.getVendor());
         product.setCategory(dto.getCategory());

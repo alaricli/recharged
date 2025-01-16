@@ -10,18 +10,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    // EVGA RTX 3080 FTW3 10GB
     private String name;
-    // EVGA
     private String vendor;
-    // Gently Used
     private String condition;
-    //
     @Column(columnDefinition = "TEXT")
     private String description;
-    // True
     private Boolean originalPackage;
-    // original everything
     private String notes;
     private String category;
     private Float cost;
