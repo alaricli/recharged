@@ -10,8 +10,11 @@ public class ProductRequestDTO {
     private Boolean originalPackage;
     private String notes;
     private String category;
+    private String subCategory;
+    private String blurb;
     private Float cost;
     private Float price;
+    private Float promotionPrice;
     private Integer stock;
     private String itemNumber;
     private String upc;
@@ -20,6 +23,14 @@ public class ProductRequestDTO {
     private String productImage;
     private List<String> tags;
     private List<String> productImages;
+
+    public Float getPromotionPrice() {
+        return promotionPrice;
+    }
+
+    public void setPromotionPrice(Float promotionPrice) {
+        this.promotionPrice = promotionPrice;
+    }
 
     public String getNotes() {
         return notes;
@@ -155,5 +166,21 @@ public class ProductRequestDTO {
 
     public void setProductImages(List<String> productImages) {
         this.productImages = productImages;
+    }
+
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
     }
 }

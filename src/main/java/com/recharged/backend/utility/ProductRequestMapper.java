@@ -11,7 +11,9 @@ public class ProductRequestMapper {
         product.setCategory(dto.getCategory());
         product.setCondition(dto.getCondition());
         product.setDescription(dto.getDescription());
+        product.setBlurb(dto.getBlurb());
         product.setPrice(dto.getPrice());
+        product.setPromotionPrice(dto.getPromotionPrice());
         product.setCost(dto.getCost());
         product.setStock(dto.getStock());
         product.setItemNumber(dto.getItemNumber());

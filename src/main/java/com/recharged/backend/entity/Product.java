@@ -14,12 +14,15 @@ public class Product {
     private String vendor;
     private String condition;
     @Column(columnDefinition = "TEXT")
+    private String blurb;
     private String description;
     private Boolean originalPackage;
     private String notes;
     private String category;
+    private String subCategory;
     private Float cost;
     private Float price;
+    private Float promotionPrice;
     private Integer stock;
     private String itemNumber;
     private String upc;
@@ -177,5 +180,29 @@ public class Product {
 
     public void setUpc(String upc) {
         this.upc = upc;
+    }
+
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
+    }
+
+    public Float getPromotionPrice() {
+        return promotionPrice;
+    }
+
+    public void setPromotionPrice(Float promotionPrice) {
+        this.promotionPrice = promotionPrice;
     }
 }

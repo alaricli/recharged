@@ -1,6 +1,7 @@
 package com.recharged.backend.controller;
 
 import com.recharged.backend.dto.ProductRequestDTO;
+import com.recharged.backend.dto.SimpleProductResponseDTO;
 import com.recharged.backend.entity.Product;
 import com.recharged.backend.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ProductController {
         return ResponseEntity.ok(createdProducts);
     }
 
-    @GetMapping("/get/products")
+    @GetMapping("/get/products/all")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.findAll();
         return ResponseEntity.ok(products);
@@ -33,5 +34,11 @@ public class ProductController {
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         Product product = productService.findById(id);
         return ResponseEntity.ok(product);
+    }
+
+    @GetMapping("/get/products/{category}")
+    public ResponseEntity<List<SimpleProductResponseDTO>> getProductsByCategory(@PathVariable String category) {
+        List<SimpleProductResponseDTO> products = productService.findAllByCategory(category);
+        return ResponseEntity.ok(products);
     }
 }

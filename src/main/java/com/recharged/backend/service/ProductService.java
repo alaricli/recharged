@@ -1,9 +1,12 @@
 package com.recharged.backend.service;
 
 import com.recharged.backend.dto.ProductRequestDTO;
+import com.recharged.backend.dto.ProductResponseDTO;
+import com.recharged.backend.dto.SimpleProductResponseDTO;
 import com.recharged.backend.entity.Product;
 import com.recharged.backend.repository.ProductRepository;
 import com.recharged.backend.utility.ProductRequestMapper;
+import com.recharged.backend.utility.ProductResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +34,27 @@ public class ProductService {
 
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    public List<SimpleProductResponseDTO> findAllByCategory(String category) {
+        List<Product> products = productRepository.findAllByCategory(category);
+        List<SimpleProductResponseDTO> simpleProductResponseDTOS = new ArrayList<>();
+        for (Product product : products) {
+            SimpleProductResponseDTO productResponseDTO = convertToProductResponseDTO(product);
+            simpleProductResponseDTOS.add(productResponseDTO);
+        }
+        return simpleProductResponseDTOS;
+    }
+
+    private SimpleProductResponseDTO convertToProductResponseDTO(Product product) {
+        SimpleProductResponseDTO productResponseDTO = new SimpleProductResponseDTO();
+        productResponseDTO.setId(product.getId());
+        productResponseDTO.setName(product.getName());
+        productResponseDTO.setPrice(product.getPrice());
+        productResponseDTO.setPromotionPrice(product.getPromotionPrice());
+        productResponseDTO.setProductImage(product.getProductImage());
+        productResponseDTO.setBlurb(product.getBlurb());
+        productResponseDTO.setVendor(product.getVendor());
+        return productResponseDTO;
     }
 }
