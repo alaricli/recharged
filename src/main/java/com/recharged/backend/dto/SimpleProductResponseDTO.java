@@ -1,19 +1,20 @@
 package com.recharged.backend.dto;
 
+import java.math.BigDecimal;
+
 public class SimpleProductResponseDTO {
     private Long id;
     private String name;
     private String vendor;
-    private Float price;
-    private Float promotionPrice;
     private String blurb;
     private String productImage;
+    private BigDecimal price;
+    private BigDecimal promotionPrice;
 
     public SimpleProductResponseDTO() {
         this.id = id;
         this.name = name;
         this.productImage = productImage;
-        this.promotionPrice = promotionPrice;
         this.blurb = blurb;
         this.vendor = vendor;
         this.price = price;
@@ -43,11 +44,11 @@ public class SimpleProductResponseDTO {
         this.name = name;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -65,13 +66,5 @@ public class SimpleProductResponseDTO {
 
     public void setBlurb(String blurb) {
         this.blurb = blurb;
-    }
-
-    public Float getPromotionPrice() {
-        return promotionPrice;
-    }
-
-    public void setPromotionPrice(Float promotionPrice) {
-        this.promotionPrice = promotionPrice;
     }
 }

@@ -2,6 +2,7 @@ package com.recharged.backend.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,8 @@ public class Product {
     private String notes;
     private String category;
     private String subCategory;
-    private Float cost;
-    private Float price;
-    private Float promotionPrice;
+    private BigDecimal cost;
+    private BigDecimal price;
     private Integer stock;
     private String itemNumber;
     private String upc;
@@ -86,19 +86,19 @@ public class Product {
         this.category = category;
     }
 
-    public Float getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(Float cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -196,13 +196,5 @@ public class Product {
 
     public void setBlurb(String blurb) {
         this.blurb = blurb;
-    }
-
-    public Float getPromotionPrice() {
-        return promotionPrice;
-    }
-
-    public void setPromotionPrice(Float promotionPrice) {
-        this.promotionPrice = promotionPrice;
     }
 }

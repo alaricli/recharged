@@ -1,6 +1,7 @@
 package com.recharged.backend.dto;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 public class ProductResponseDTO {
     private Long id;
@@ -13,9 +14,8 @@ public class ProductResponseDTO {
     private String category;
     private String subCategory;
     private String blurb;
-    private Float cost;
-    private Float price;
-    private Float promotionPrice;
+    private BigDecimal cost;
+    private BigDecimal price;
     private Integer stock;
     private String itemNumber;
     private String upc;
@@ -31,14 +31,6 @@ public class ProductResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Float getPromotionPrice() {
-        return promotionPrice;
-    }
-
-    public void setPromotionPrice(Float promotionPrice) {
-        this.promotionPrice = promotionPrice;
     }
 
     public String getName() {
@@ -97,19 +89,19 @@ public class ProductResponseDTO {
         this.category = category;
     }
 
-    public Float getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(Float cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

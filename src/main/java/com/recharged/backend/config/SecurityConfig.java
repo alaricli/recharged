@@ -16,7 +16,6 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configs = new CorsConfiguration();
@@ -38,7 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(request -> "squeeze118".equals(request.getHeader("X-API-KEY"))).permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/auth/**").authenticated()
                 );
         return http.build();
     }

@@ -1,5 +1,6 @@
 package com.recharged.backend.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductRequestDTO {
@@ -12,9 +13,8 @@ public class ProductRequestDTO {
     private String category;
     private String subCategory;
     private String blurb;
-    private Float cost;
-    private Float price;
-    private Float promotionPrice;
+    private BigDecimal cost;
+    private BigDecimal price;
     private Integer stock;
     private String itemNumber;
     private String upc;

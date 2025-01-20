@@ -1,12 +1,10 @@
 package com.recharged.backend.service;
 
 import com.recharged.backend.dto.ProductRequestDTO;
-import com.recharged.backend.dto.ProductResponseDTO;
 import com.recharged.backend.dto.SimpleProductResponseDTO;
 import com.recharged.backend.entity.Product;
 import com.recharged.backend.repository.ProductRepository;
 import com.recharged.backend.utility.ProductRequestMapper;
-import com.recharged.backend.utility.ProductResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +49,6 @@ public class ProductService {
         productResponseDTO.setId(product.getId());
         productResponseDTO.setName(product.getName());
         productResponseDTO.setPrice(product.getPrice());
-        productResponseDTO.setPromotionPrice(product.getPromotionPrice());
         productResponseDTO.setProductImage(product.getProductImage());
         productResponseDTO.setBlurb(product.getBlurb());
         productResponseDTO.setVendor(product.getVendor());

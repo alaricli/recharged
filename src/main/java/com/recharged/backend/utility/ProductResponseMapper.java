@@ -15,7 +15,6 @@ public class ProductResponseMapper {
         dto.setDescription(product.getDescription());
         dto.setBlurb(product.getBlurb());
         dto.setPrice(product.getPrice());
-        dto.setPromotionPrice(product.getPromotionPrice());
         dto.setCost(product.getCost());
         dto.setStock(product.getStock());
         dto.setItemNumber(product.getItemNumber());
