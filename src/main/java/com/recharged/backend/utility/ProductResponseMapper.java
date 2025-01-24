@@ -1,8 +1,11 @@
 package com.recharged.backend.utility;
 
+import org.springframework.stereotype.Component;
+
 import com.recharged.backend.dto.ProductResponseDTO;
 import com.recharged.backend.entity.Product;
 
+@Component
 public class ProductResponseMapper {
     public static ProductResponseDTO map(Product product) {
         ProductResponseDTO dto = new ProductResponseDTO();

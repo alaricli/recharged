@@ -9,16 +9,6 @@ public class SimpleProductResponseDTO {
     private String blurb;
     private String productImage;
     private BigDecimal price;
-    private BigDecimal promotionPrice;
-
-    public SimpleProductResponseDTO() {
-        this.id = id;
-        this.name = name;
-        this.productImage = productImage;
-        this.blurb = blurb;
-        this.vendor = vendor;
-        this.price = price;
-    }
 
     public Long getId() {
         return id;

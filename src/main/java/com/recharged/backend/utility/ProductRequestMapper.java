@@ -1,8 +1,11 @@
 package com.recharged.backend.utility;
 
+import org.springframework.stereotype.Component;
+
 import com.recharged.backend.dto.ProductRequestDTO;
 import com.recharged.backend.entity.Product;
 
+@Component
 public class ProductRequestMapper {
     public static Product map(ProductRequestDTO dto) {
         Product product = new Product();
@@ -13,7 +16,6 @@ public class ProductRequestMapper {
         product.setDescription(dto.getDescription());
         product.setBlurb(dto.getBlurb());
         product.setPrice(dto.getPrice());
-        product.setPromotionPrice(dto.getPromotionPrice());
         product.setCost(dto.getCost());
         product.setStock(dto.getStock());
         product.setItemNumber(dto.getItemNumber());

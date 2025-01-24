@@ -2,11 +2,12 @@ package com.recharged.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -15,11 +16,22 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfiguration {
+    private final AuthenticationProvider authenticationProvider;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfiguration(AuthenticationProvider authenticationProvider,
+            JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.authenticationProvider = authenticationProvider;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configs = new CorsConfiguration();
-        configs.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://www.rebooted.biz", "https://reboot.biz", "https://www.recharged.icu", "https://recharged.icu"));
+        configs.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://localhost", "https://localhost:8080",
+                "https://www.rebooted.biz",
+                "https://reboot.biz", "https://www.recharged.icu", "https://recharged.icu"));
         configs.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configs.setAllowedHeaders(Arrays.asList("*"));
         configs.setAllowCredentials(true);
@@ -35,10 +47,14 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET).permitAll()
-                        .requestMatchers(request -> "squeeze118".equals(request.getHeader("X-API-KEY"))).permitAll()
-                        .requestMatchers("/api/auth/**").authenticated()
-                );
+                        .requestMatchers("/auth/login", "/auth/signup").permitAll()
+                        .anyRequest().authenticated())
+                // .requestMatchers("/auth/signup", "/auth/login").permitAll()
+                // .requestMatchers(HttpMethod.GET).permitAll()
+                // .requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

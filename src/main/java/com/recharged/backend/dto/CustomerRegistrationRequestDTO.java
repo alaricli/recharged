@@ -1,8 +1,9 @@
 package com.recharged.backend.dto;
 
-public class CustomerRequestDTO {
+public class CustomerRegistrationRequestDTO {
   private String username;
   private String email;
+  private String fullName;
   private String phoneNumber;
   private String password;
 
@@ -38,4 +39,13 @@ public class CustomerRequestDTO {
   public void setPassword(String password) {
     this.password = password;
   }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
 }

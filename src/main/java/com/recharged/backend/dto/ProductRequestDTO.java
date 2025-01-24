@@ -24,14 +24,6 @@ public class ProductRequestDTO {
     private List<String> tags;
     private List<String> productImages;
 
-    public Float getPromotionPrice() {
-        return promotionPrice;
-    }
-
-    public void setPromotionPrice(Float promotionPrice) {
-        this.promotionPrice = promotionPrice;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -87,20 +79,19 @@ public class ProductRequestDTO {
     public void setCategory(String category) {
         this.category = category;
     }
-
-    public Float getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(Float cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
