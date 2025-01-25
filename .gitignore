@@ -2,3 +2,4 @@
 /.idea
 !/src/main/resources/application.properties
 .vscode
+.DS_Store

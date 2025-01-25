@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/auth")
-public class CustomerController {
+public class AuthController {
   private final JwtService jwtService;
   private final AuthenticationService authenticationService;
 
-  public CustomerController(JwtService jwtService, AuthenticationService authenticationService) {
+  public AuthController(JwtService jwtService, AuthenticationService authenticationService) {
     this.jwtService = jwtService;
     this.authenticationService = authenticationService;
   }
