@@ -1,5 +1,6 @@
 package com.recharged.backend.entity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Customer implements UserDetails {
@@ -35,13 +37,16 @@ public class Customer implements UserDetails {
   @Column(unique = true)
   private String phoneNumber;
 
+  @OneToOne
+  private Cart cart;
+
   @CreationTimestamp
   @Column(updatable = false, name = "created_at")
-  private Date createdAt;
+  private LocalDateTime createdAt;
 
   @CreationTimestamp
   @Column(name = "updated_at")
-  private Date updatedAt;
+  private LocalDateTime updatedAt;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -118,19 +123,27 @@ public class Customer implements UserDetails {
     this.fullName = fullName;
   }
 
-  public Date getCreatedAt() {
+  public Cart getCart() {
+    return cart;
+  }
+
+  public void setCart(Cart cart) {
+    this.cart = cart;
+  }
+
+  public LocalDateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public LocalDateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 }

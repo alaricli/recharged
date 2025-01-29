@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class CartItem {
@@ -14,19 +16,16 @@ public class CartItem {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @JoinColumn(name = "product_id")
-  private Long productId;
+  @ManyToOne
+  @JoinColumn(name = "cart_id", nullable = false)
+  private Cart cart;
 
-  @JoinColumn(name = "customer_id")
-  private Long customerId;
-
-  @JoinColumn(name = "order_id")
-  private Long orderId;
-
-  @JoinColumn(name = "product_price")
-  private BigDecimal productPrice;
+  @OneToOne
+  @JoinColumn(name = "product_id", nullable = false)
+  private Product product;
 
   private int quantity;
+  private BigDecimal price;
 
   public Long getId() {
     return id;
@@ -36,43 +35,35 @@ public class CartItem {
     this.id = id;
   }
 
-  public Long getProductId() {
-    return productId;
-  }
-
-  public void setProductId(Long productId) {
-    this.productId = productId;
-  }
-
-  public Long getCustomerId() {
-    return customerId;
-  }
-
-  public void setCustomerId(Long customerId) {
-    this.customerId = customerId;
-  }
-
-  public Long getOrderId() {
-    return orderId;
-  }
-
-  public void setOrderId(Long orderId) {
-    this.orderId = orderId;
-  }
-
-  public BigDecimal getProductPrice() {
-    return productPrice;
-  }
-
-  public void setProductPrice(BigDecimal productPrice) {
-    this.productPrice = productPrice;
-  }
-
   public int getQuantity() {
     return quantity;
   }
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  public Product getProduct() {
+    return product;
+  }
+
+  public void setProduct(Product product) {
+    this.product = product;
+  }
+
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
+
+  public Cart getCart() {
+    return cart;
+  }
+
+  public void setCart(Cart cart) {
+    this.cart = cart;
   }
 }
