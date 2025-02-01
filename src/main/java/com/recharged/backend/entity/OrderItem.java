@@ -11,19 +11,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class CartItem {
+public class OrderItem {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "cart_id", nullable = false)
-  private Cart cart;
+  @JoinColumn(name = "order_id", nullable = false)
+  private CustomerOrder customerOrder;
 
   @OneToOne
   @JoinColumn(name = "product_id", nullable = false)
   private Product product;
-
   private int quantity;
   private String currency;
   private BigDecimal price;
@@ -36,12 +35,12 @@ public class CartItem {
     this.id = id;
   }
 
-  public int getQuantity() {
-    return quantity;
+  public CustomerOrder getCustomerOrder() {
+    return customerOrder;
   }
 
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
+  public void setCustomerOrder(CustomerOrder customerOrder) {
+    this.customerOrder = customerOrder;
   }
 
   public Product getProduct() {
@@ -52,20 +51,12 @@ public class CartItem {
     this.product = product;
   }
 
-  public BigDecimal getPrice() {
-    return price;
+  public int getQuantity() {
+    return quantity;
   }
 
-  public void setPrice(BigDecimal price) {
-    this.price = price;
-  }
-
-  public Cart getCart() {
-    return cart;
-  }
-
-  public void setCart(Cart cart) {
-    this.cart = cart;
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
   }
 
   public String getCurrency() {
@@ -75,4 +66,13 @@ public class CartItem {
   public void setCurrency(String currency) {
     this.currency = currency;
   }
+
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
+
 }

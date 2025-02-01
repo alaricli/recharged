@@ -3,18 +3,9 @@ package com.recharged.backend.dto;
 import java.math.BigDecimal;
 
 public class CartEditRequestDTO {
-  private Long cartId;
   private Long productId;
   private int quantity;
   private BigDecimal price;
-
-  public Long getCartId() {
-    return cartId;
-  }
-
-  public void setCartId(Long cartId) {
-    this.cartId = cartId;
-  }
 
   public int getQuantity() {
     return quantity;

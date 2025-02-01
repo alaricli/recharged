@@ -1,8 +1,10 @@
 package com.recharged.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +21,8 @@ public class Cart {
   @OneToOne
   private Customer customer;
 
-  @OneToMany
-  private List<CartItem> cartItems;
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<CartItem> cartItems = new ArrayList<>();
 
   private LocalDateTime lastUpdatedDateTime;
 
@@ -46,6 +48,11 @@ public class Cart {
 
   public void setCartItems(List<CartItem> cartItems) {
     this.cartItems = cartItems;
+  }
+
+  public void addCartItem(CartItem item) {
+    item.setCart(this);
+    this.cartItems.add(item);
   }
 
   public LocalDateTime getLastUpdatedDateTime() {
