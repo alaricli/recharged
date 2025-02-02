@@ -5,27 +5,34 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.hibernate.annotations.UuidGenerator;
+
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    private String name;
-    private String vendor;
+    @GeneratedValue(generator = "UUID")
+    @UuidGenerator
+    @Column(name = "id", nullable = false, updatable = false)
+    private String id;
+    private String productName;
+    private String brand;
     private String condition;
+    private String color;
+    private Boolean hasOriginalPackaging;
     @Column(columnDefinition = "TEXT")
     private String blurb;
+    @Column(columnDefinition = "TEXT")
     private String description;
-    private Boolean originalPackage;
+    @Column(columnDefinition = "TEXT")
     private String notes;
     private String category;
     private String subCategory;
-    private BigDecimal cost;
-    private BigDecimal price;
+    private BigDecimal unitCostCAD;
+    private BigDecimal unitPriceCAD;
     private Integer stock;
     private String itemNumber;
     private String upc;
+    private String sku;
     private String modelNumber;
     private String serialNumber;
     private String productImage;
@@ -38,28 +45,28 @@ public class Product {
     @Column(name = "product_images")
     private List<String> productImages;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String name) {
+        this.productName = name;
     }
 
-    public String getVendor() {
-        return vendor;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setBrand(String vendor) {
+        this.brand = vendor;
     }
 
     public String getCondition() {
@@ -86,20 +93,20 @@ public class Product {
         this.category = category;
     }
 
-    public BigDecimal getCost() {
-        return cost;
+    public BigDecimal getUnitCostCAD() {
+        return unitCostCAD;
     }
 
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
+    public void setUnitCostCAD(BigDecimal cost) {
+        this.unitCostCAD = cost;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getUnitPriceCAD() {
+        return unitPriceCAD;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setUnitPriceCAD(BigDecimal price) {
+        this.unitPriceCAD = price;
     }
 
     public Integer getStock() {
@@ -150,12 +157,12 @@ public class Product {
         this.productImages = productImages;
     }
 
-    public Boolean getOriginalPackage() {
-        return originalPackage;
+    public Boolean getHasOriginalPackaging() {
+        return hasOriginalPackaging;
     }
 
-    public void setOriginalPackage(Boolean originalPackage) {
-        this.originalPackage = originalPackage;
+    public void setHasOriginalPackaging(Boolean originalPackage) {
+        this.hasOriginalPackaging = originalPackage;
     }
 
     public String getNotes() {
@@ -196,5 +203,21 @@ public class Product {
 
     public void setBlurb(String blurb) {
         this.blurb = blurb;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }

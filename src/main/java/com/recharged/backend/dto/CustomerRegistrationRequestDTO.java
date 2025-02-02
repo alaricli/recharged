@@ -3,7 +3,8 @@ package com.recharged.backend.dto;
 public class CustomerRegistrationRequestDTO {
   private String username;
   private String email;
-  private String fullName;
+  private String firstName;
+  private String lastName;
   private String phoneNumber;
   private String password;
 
@@ -40,12 +41,19 @@ public class CustomerRegistrationRequestDTO {
     this.password = password;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 }

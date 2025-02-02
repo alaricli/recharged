@@ -31,7 +31,10 @@ public class Customer implements UserDetails {
   private String email;
 
   @Column(nullable = false)
-  private String fullName;
+  private String firstName;
+
+  @Column(nullable = false)
+  private String lastName;
 
   @Column(unique = true)
   private String phoneNumber;
@@ -114,12 +117,20 @@ public class Customer implements UserDetails {
     this.phoneNumber = phoneNumber;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public Cart getCart() {

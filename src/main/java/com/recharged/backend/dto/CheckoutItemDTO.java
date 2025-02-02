@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.recharged.backend.entity.CartItem;
 
 public class CheckoutItemDTO {
-  private Long productId;
+  private String productId;
   private int quantity;
   private String currency;
   private BigDecimal price;
@@ -17,11 +17,11 @@ public class CheckoutItemDTO {
     this.price = cartItem.getPrice();
   }
 
-  public Long getProductId() {
+  public String getProductId() {
     return productId;
   }
 
-  public void setProductId(Long productId) {
+  public void setProductId(String productId) {
     this.productId = productId;
   }
 

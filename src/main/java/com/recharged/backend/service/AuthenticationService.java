@@ -32,7 +32,8 @@ public class AuthenticationService {
     Customer customer = new Customer();
     customer.setUsername(newCustomerDetails.getUsername());
     customer.setEmail(newCustomerDetails.getEmail());
-    customer.setFullName(newCustomerDetails.getFullName());
+    customer.setFirstName(null);
+    customer.setLastName(null);
     customer.setPassword(passwordEncoder.encode(newCustomerDetails.getPassword()));
     customer.setPhoneNumber(newCustomerDetails.getPhoneNumber());
     return customerRepository.save(customer);

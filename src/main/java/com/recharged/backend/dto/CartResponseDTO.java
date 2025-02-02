@@ -24,7 +24,7 @@ public class CartResponseDTO {
 
   private BigDecimal calculateTotal(Cart cart) {
     return cart.getCartItems().stream()
-        .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+        .map(item -> item.getProduct().getUnitPriceCAD().multiply(BigDecimal.valueOf(item.getQuantity())))
         .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 

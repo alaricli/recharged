@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.recharged.backend.entity.CartItem;
 
 public class CartItemDTO {
-  private Long productId;
+  private String productId;
   private String productName;
   private String imageUrl;
   private int quantity;
@@ -14,13 +14,13 @@ public class CartItemDTO {
 
   public CartItemDTO(CartItem cartItem) {
     this.productId = cartItem.getProduct().getId();
-    this.productName = cartItem.getProduct().getName();
+    this.productName = cartItem.getProduct().getProductName();
     this.imageUrl = cartItem.getProduct().getProductImage(); // Ensure Product has an image field
     this.quantity = cartItem.getQuantity();
-    this.price = cartItem.getProduct().getPrice();
+    this.price = cartItem.getProduct().getUnitPriceCAD();
   }
 
-  public Long getProductId() {
+  public String getProductId() {
     return productId;
   }
 

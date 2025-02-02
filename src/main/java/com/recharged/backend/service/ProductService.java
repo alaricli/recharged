@@ -47,11 +47,11 @@ public class ProductService {
     private SimpleProductResponseDTO convertToProductResponseDTO(Product product) {
         SimpleProductResponseDTO productResponseDTO = new SimpleProductResponseDTO();
         productResponseDTO.setId(product.getId());
-        productResponseDTO.setName(product.getName());
-        productResponseDTO.setPrice(product.getPrice());
+        productResponseDTO.setName(product.getProductName());
+        productResponseDTO.setPrice(product.getUnitPriceCAD());
         productResponseDTO.setProductImage(product.getProductImage());
         productResponseDTO.setBlurb(product.getBlurb());
-        productResponseDTO.setVendor(product.getVendor());
+        productResponseDTO.setVendor(product.getBrand());
         return productResponseDTO;
     }
 }
