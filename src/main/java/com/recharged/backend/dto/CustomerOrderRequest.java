@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class CheckoutRequestDTO {
+public class CustomerOrderRequest {
   private Long customerId;
-  private List<CheckoutItemDTO> items;
+  private List<OrderItemRequestDTO> items;
   private String orderStatus;
   private LocalDateTime orderDateTime;
   private String currency;
@@ -20,11 +20,11 @@ public class CheckoutRequestDTO {
     this.customerId = customerId;
   }
 
-  public List<CheckoutItemDTO> getItems() {
+  public List<OrderItemRequestDTO> getItems() {
     return items;
   }
 
-  public void setItems(List<CheckoutItemDTO> items) {
+  public void setItems(List<OrderItemRequestDTO> items) {
     this.items = items;
   }
 

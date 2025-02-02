@@ -2,7 +2,7 @@ package com.recharged.backend.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.recharged.backend.dto.CartEditRequestDTO;
+import com.recharged.backend.dto.CartItemRequestDTO;
 import com.recharged.backend.dto.CartResponseDTO;
 import com.recharged.backend.entity.Cart;
 import com.recharged.backend.service.CartService;
@@ -28,7 +28,7 @@ public class CartController {
   }
 
   @GetMapping("/get")
-  public ResponseEntity<?> getCart(
+  public ResponseEntity<?> getCartById(
       @CookieValue(value = "cartId", required = false) Long cartId) {
     if (cartId == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -37,19 +37,19 @@ public class CartController {
     return ResponseEntity.ok(new CartResponseDTO(cart));
   }
 
-  // takes in an optional cookie: cart_id and cartEditRequest which contains
-  // product_id, quantity and price
-  // if cart_id, continue
-  // if no cart_id, a brand new cart will be made for the user
+  // takes in an optional cookie: cart_id and required cartEditRequest containing:
+  // product_id, quantity, and unitPrice
+  // if cart_id is present, go straight to adding to cart
+  // else, a brand new cart will be made for the user and
   // product will be converted to cart item in the backend
   // cart_item will be attached to the cart
   @PostMapping("/add")
-  public ResponseEntity<Void> addToCart(
+  public ResponseEntity<Void> addItemToCart(
       @CookieValue(value = "cartId", required = false) Long cartId,
-      @RequestBody CartEditRequestDTO requestDTO,
+      @RequestBody CartItemRequestDTO requestDTO,
       HttpServletResponse response) {
 
-    String updatedCartId = cartService.addToCart(cartId, requestDTO);
+    String updatedCartId = cartService.addCartItemToCart(cartId, requestDTO);
 
     if (cartId == null) {
       Cookie cartCookie = new Cookie("cartId", updatedCartId);
@@ -62,13 +62,14 @@ public class CartController {
     return ResponseEntity.ok().build();
   }
 
+  // editing quantity of a cartItem in a Cart
   @PostMapping("/edit")
-  public ResponseEntity<Void> editCart(
+  public ResponseEntity<Void> editItemInCart(
       @CookieValue(value = "cartId", required = true) Long cartId,
-      @RequestBody CartEditRequestDTO requestDTO,
+      @RequestBody CartItemRequestDTO requestDTO,
       HttpServletResponse response) {
 
-    cartService.addToCart(cartId, requestDTO);
+    cartService.addCartItemToCart(cartId, requestDTO);
     return ResponseEntity.ok().build();
   }
 

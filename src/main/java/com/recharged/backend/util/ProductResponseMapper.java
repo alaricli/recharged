@@ -9,6 +9,7 @@ import com.recharged.backend.entity.Product;
 public class ProductResponseMapper {
     public static ProductResponseDTO map(Product product) {
         ProductResponseDTO dto = new ProductResponseDTO();
+        dto.setId(product.getId());
         dto.setProductName(product.getProductName());
         dto.setBrand(product.getBrand());
         dto.setCondition(product.getCondition());

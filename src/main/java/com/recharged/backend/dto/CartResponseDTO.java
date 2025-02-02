@@ -9,14 +9,14 @@ import com.recharged.backend.entity.Cart;
 
 public class CartResponseDTO {
   private Long cartId;
-  private List<CartItemDTO> items;
+  private List<CartItemResponseDTO> items;
   private BigDecimal totalPrice;
   private LocalDateTime lastUpdated;
 
   public CartResponseDTO(Cart cart) {
     this.cartId = cart.getId();
     this.items = cart.getCartItems().stream()
-        .map(CartItemDTO::new)
+        .map(CartItemResponseDTO::new)
         .collect(Collectors.toList());
     this.totalPrice = calculateTotal(cart);
     this.lastUpdated = cart.getLastUpdatedDateTime();
@@ -32,7 +32,7 @@ public class CartResponseDTO {
     return cartId;
   }
 
-  public List<CartItemDTO> getItems() {
+  public List<CartItemResponseDTO> getItems() {
     return items;
   }
 

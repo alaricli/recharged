@@ -28,8 +28,16 @@ public class ProductService {
         return productRepository.saveAll(newProducts);
     }
 
+    public Product findById(String id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
     public Product findBySku(String sku) {
         return productRepository.findBySku(sku).orElse(null);
+    }
+
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     public List<SimpleProductResponseDTO> findAllByCategory(String category) {
@@ -40,9 +48,5 @@ public class ProductService {
             simpleProductResponseDTOS.add(productResponseDTO);
         }
         return simpleProductResponseDTOS;
-    }
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
     }
 }

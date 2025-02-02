@@ -4,6 +4,7 @@ import java.util.List;
 import java.math.BigDecimal;
 
 public class ProductResponseDTO {
+    private String id;
     private String productName;
     private String brand;
     private String condition;
@@ -192,6 +193,14 @@ public class ProductResponseDTO {
 
     public void setProductImages(List<String> productImages) {
         this.productImages = productImages;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

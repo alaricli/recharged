@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.recharged.backend.dto.CheckoutItemDTO;
-import com.recharged.backend.dto.CheckoutRequestDTO;
+import com.recharged.backend.dto.OrderItemRequestDTO;
+import com.recharged.backend.dto.CustomerOrderRequest;
 import com.recharged.backend.entity.CustomerOrder;
 import com.recharged.backend.repository.CustomerOrderRepository;
 import com.stripe.Stripe;
@@ -34,10 +34,10 @@ public class CheckoutService {
   }
 
   // create checkout session
-  public String createStripeCheckoutSession(CheckoutRequestDTO requestDTO) throws StripeException {
+  public String createStripeCheckoutSession(CustomerOrderRequest requestDTO) throws StripeException {
     List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
 
-    for (CheckoutItemDTO item : requestDTO.getItems()) {
+    for (OrderItemRequestDTO item : requestDTO.getItems()) {
       SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
           .setCurrency(item.getCurrency())
           .build();
@@ -66,7 +66,7 @@ public class CheckoutService {
 
   // helper
   // create order from cart
-  public CustomerOrder createOrder(CheckoutRequestDTO requestDTO) {
+  public CustomerOrder createOrder(CustomerOrderRequest requestDTO) {
     // TODO: Implement the logic to create an order from checkout request
     throw new UnsupportedOperationException("Not implemented yet");
   }
