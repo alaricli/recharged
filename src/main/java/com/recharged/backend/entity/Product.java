@@ -1,6 +1,7 @@
 package com.recharged.backend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,10 +33,12 @@ public class Product {
     private Integer stock;
     private String itemNumber;
     private String upc;
+    @Column(nullable = false)
+    @NotBlank
     private String sku;
     private String modelNumber;
     private String serialNumber;
-    private String productImage;
+    private String mainImage;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "product_tags")
@@ -57,16 +60,16 @@ public class Product {
         return productName;
     }
 
-    public void setProductName(String name) {
-        this.productName = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String vendor) {
-        this.brand = vendor;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getCondition() {
@@ -77,12 +80,44 @@ public class Product {
         this.condition = condition;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Boolean getHasOriginalPackaging() {
+        return hasOriginalPackaging;
+    }
+
+    public void setHasOriginalPackaging(Boolean hasOriginalPackaging) {
+        this.hasOriginalPackaging = hasOriginalPackaging;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getCategory() {
@@ -93,20 +128,28 @@ public class Product {
         this.category = category;
     }
 
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
+    }
+
     public BigDecimal getUnitCostCAD() {
         return unitCostCAD;
     }
 
-    public void setUnitCostCAD(BigDecimal cost) {
-        this.unitCostCAD = cost;
+    public void setUnitCostCAD(BigDecimal unitCostCAD) {
+        this.unitCostCAD = unitCostCAD;
     }
 
     public BigDecimal getUnitPriceCAD() {
         return unitPriceCAD;
     }
 
-    public void setUnitPriceCAD(BigDecimal price) {
-        this.unitPriceCAD = price;
+    public void setUnitPriceCAD(BigDecimal unitPriceCAD) {
+        this.unitPriceCAD = unitPriceCAD;
     }
 
     public Integer getStock() {
@@ -115,62 +158,6 @@ public class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
-    }
-
-    public String getModelNumber() {
-        return modelNumber;
-    }
-
-    public void setModelNumber(String modelNumber) {
-        this.modelNumber = modelNumber;
-    }
-
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public List<String> getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(List<String> productImages) {
-        this.productImages = productImages;
-    }
-
-    public Boolean getHasOriginalPackaging() {
-        return hasOriginalPackaging;
-    }
-
-    public void setHasOriginalPackaging(Boolean originalPackage) {
-        this.hasOriginalPackaging = originalPackage;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     public String getItemNumber() {
@@ -189,30 +176,6 @@ public class Product {
         this.upc = upc;
     }
 
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public String getBlurb() {
-        return blurb;
-    }
-
-    public void setBlurb(String blurb) {
-        this.blurb = blurb;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getSku() {
         return sku;
     }
@@ -220,4 +183,45 @@ public class Product {
     public void setSku(String sku) {
         this.sku = sku;
     }
+
+    public String getModelNumber() {
+        return modelNumber;
+    }
+
+    public void setModelNumber(String modelNumber) {
+        this.modelNumber = modelNumber;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(List<String> productImages) {
+        this.productImages = productImages;
+    }
+
 }

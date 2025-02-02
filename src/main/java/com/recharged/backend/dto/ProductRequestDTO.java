@@ -4,48 +4,42 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductRequestDTO {
-    private String name;
-    private String vendor;
+    private String productName;
+    private String brand;
     private String condition;
+    private String color;
+    private Boolean hasOriginalPackaging;
+    private String blurb;
     private String description;
-    private Boolean originalPackage;
     private String notes;
     private String category;
     private String subCategory;
-    private String blurb;
-    private BigDecimal cost;
-    private BigDecimal price;
+    private BigDecimal unitCostCAD;
+    private BigDecimal unitPriceCAD;
     private Integer stock;
     private String itemNumber;
     private String upc;
+    private String sku;
     private String modelNumber;
     private String serialNumber;
-    private String productImage;
+    private String mainImage;
     private List<String> tags;
     private List<String> productImages;
 
-    public String getNotes() {
-        return notes;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getCondition() {
@@ -56,6 +50,30 @@ public class ProductRequestDTO {
         this.condition = condition;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Boolean getHasOriginalPackaging() {
+        return hasOriginalPackaging;
+    }
+
+    public void setHasOriginalPackaging(Boolean hasOriginalPackaging) {
+        this.hasOriginalPackaging = hasOriginalPackaging;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -64,12 +82,12 @@ public class ProductRequestDTO {
         this.description = description;
     }
 
-    public Boolean getOriginalPackage() {
-        return originalPackage;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setOriginalPackage(Boolean originalPackage) {
-        this.originalPackage = originalPackage;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getCategory() {
@@ -79,20 +97,29 @@ public class ProductRequestDTO {
     public void setCategory(String category) {
         this.category = category;
     }
-    public BigDecimal getCost() {
-        return cost;
+
+    public String getSubCategory() {
+        return subCategory;
     }
 
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getUnitCostCAD() {
+        return unitCostCAD;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setUnitCostCAD(BigDecimal unitCostCAD) {
+        this.unitCostCAD = unitCostCAD;
+    }
+
+    public BigDecimal getUnitPriceCAD() {
+        return unitPriceCAD;
+    }
+
+    public void setUnitPriceCAD(BigDecimal unitPriceCAD) {
+        this.unitPriceCAD = unitPriceCAD;
     }
 
     public Integer getStock() {
@@ -119,6 +146,14 @@ public class ProductRequestDTO {
         this.upc = upc;
     }
 
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
     public String getModelNumber() {
         return modelNumber;
     }
@@ -135,12 +170,12 @@ public class ProductRequestDTO {
         this.serialNumber = serialNumber;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getMainImage() {
+        return mainImage;
     }
 
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
     }
 
     public List<String> getTags() {
@@ -159,19 +194,4 @@ public class ProductRequestDTO {
         this.productImages = productImages;
     }
 
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public String getBlurb() {
-        return blurb;
-    }
-
-    public void setBlurb(String blurb) {
-        this.blurb = blurb;
-    }
 }

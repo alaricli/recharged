@@ -4,7 +4,9 @@ import com.recharged.backend.dto.ProductRequestDTO;
 import com.recharged.backend.dto.SimpleProductResponseDTO;
 import com.recharged.backend.entity.Product;
 import com.recharged.backend.repository.ProductRepository;
-import com.recharged.backend.utility.ProductRequestMapper;
+import com.recharged.backend.util.ProductRequestMapper;
+import com.recharged.backend.util.SimpleProductResponseMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,32 +28,21 @@ public class ProductService {
         return productRepository.saveAll(newProducts);
     }
 
-    public Product findById(Long id) {
-        return productRepository.findById(id).orElse(null);
-    }
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Product findBySku(String sku) {
+        return productRepository.findBySku(sku).orElse(null);
     }
 
     public List<SimpleProductResponseDTO> findAllByCategory(String category) {
         List<Product> products = productRepository.findAllByCategory(category);
         List<SimpleProductResponseDTO> simpleProductResponseDTOS = new ArrayList<>();
         for (Product product : products) {
-            SimpleProductResponseDTO productResponseDTO = convertToProductResponseDTO(product);
+            SimpleProductResponseDTO productResponseDTO = SimpleProductResponseMapper.toSimpleProductResponse(product);
             simpleProductResponseDTOS.add(productResponseDTO);
         }
         return simpleProductResponseDTOS;
     }
 
-    private SimpleProductResponseDTO convertToProductResponseDTO(Product product) {
-        SimpleProductResponseDTO productResponseDTO = new SimpleProductResponseDTO();
-        productResponseDTO.setId(product.getId());
-        productResponseDTO.setName(product.getProductName());
-        productResponseDTO.setPrice(product.getUnitPriceCAD());
-        productResponseDTO.setProductImage(product.getProductImage());
-        productResponseDTO.setBlurb(product.getBlurb());
-        productResponseDTO.setVendor(product.getBrand());
-        return productResponseDTO;
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 }

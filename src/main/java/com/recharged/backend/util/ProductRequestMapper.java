@@ -1,4 +1,4 @@
-package com.recharged.backend.utility;
+package com.recharged.backend.util;
 
 import org.springframework.stereotype.Component;
 
@@ -9,24 +9,27 @@ import com.recharged.backend.entity.Product;
 public class ProductRequestMapper {
     public static Product map(ProductRequestDTO dto) {
         Product product = new Product();
-        product.setProductName(dto.getName());
-        product.setBrand(dto.getVendor());
-        product.setCategory(dto.getCategory());
+        product.setProductName(dto.getProductName());
+        product.setBrand(dto.getBrand());
         product.setCondition(dto.getCondition());
-        product.setDescription(dto.getDescription());
+        product.setColor(dto.getColor());
+        product.setHasOriginalPackaging(dto.getHasOriginalPackaging());
         product.setBlurb(dto.getBlurb());
-        product.setUnitPriceCAD(dto.getPrice());
-        product.setUnitCostCAD(dto.getCost());
+        product.setDescription(dto.getDescription());
+        product.setNotes(dto.getNotes());
+        product.setCategory(dto.getCategory());
+        product.setSubCategory(dto.getSubCategory());
+        product.setUnitCostCAD(dto.getUnitCostCAD());
+        product.setUnitPriceCAD(dto.getUnitPriceCAD());
         product.setStock(dto.getStock());
         product.setItemNumber(dto.getItemNumber());
         product.setUpc(dto.getUpc());
+        product.setSku(dto.getSku());
         product.setModelNumber(dto.getModelNumber());
         product.setSerialNumber(dto.getSerialNumber());
-        product.setProductImage(dto.getProductImage());
+        product.setMainImage(dto.getMainImage());
         product.setTags(dto.getTags());
         product.setProductImages(dto.getProductImages());
-        product.setHasOriginalPackaging(dto.getOriginalPackage());
-        product.setNotes(dto.getNotes());
 
         return product;
     }

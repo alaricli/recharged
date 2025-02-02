@@ -3,51 +3,35 @@ package com.recharged.backend.dto;
 import java.math.BigDecimal;
 
 public class SimpleProductResponseDTO {
-    private String id;
-    private String name;
-    private String vendor;
+    private String sku;
+    private String productName;
+    private String brand;
     private String blurb;
-    private String productImage;
-    private BigDecimal price;
+    private String mainImage;
+    private BigDecimal unitPrice;
 
-    public String getId() {
-        return id;
+    public String getSku() {
+        return sku;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
-    public String getVendor() {
-        return vendor;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getBlurb() {
@@ -57,4 +41,21 @@ public class SimpleProductResponseDTO {
     public void setBlurb(String blurb) {
         this.blurb = blurb;
     }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
 }

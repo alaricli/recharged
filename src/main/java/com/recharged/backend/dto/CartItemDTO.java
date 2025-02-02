@@ -15,7 +15,7 @@ public class CartItemDTO {
   public CartItemDTO(CartItem cartItem) {
     this.productId = cartItem.getProduct().getId();
     this.productName = cartItem.getProduct().getProductName();
-    this.imageUrl = cartItem.getProduct().getProductImage(); // Ensure Product has an image field
+    this.imageUrl = cartItem.getProduct().getMainImage(); // Ensure Product has an image field
     this.quantity = cartItem.getQuantity();
     this.price = cartItem.getProduct().getUnitPriceCAD();
   }
