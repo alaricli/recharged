@@ -1,6 +1,5 @@
 package com.recharged.backend.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
@@ -32,21 +31,17 @@ public class CartService {
     // check for existing cart, if there's no existing cart, make one
     Cart cart = (cartId != null) ? getCart(cartId) : createNewCart();
 
-    if (cart == null) {
-      cart = createNewCart();
+    CartItem existingCartItem = findCartItem(cart, requestDTO.getSku());
+
+    if (existingCartItem != null) {
+      existingCartItem.setQuantity(existingCartItem.getQuantity() + requestDTO.getQuantity());
+    } else {
+      CartItem newCartItem = createCartItem(requestDTO);
+      newCartItem.setCart(cart);
+      cart.getCartItems().add(newCartItem);
     }
 
-    // construct new CartItem and add it to cart
-    CartItem newCartItem = new CartItem();
-    newCartItem.setProduct(productRepository.findById(requestDTO.getProductId()).orElseThrow(
-        () -> new RuntimeException("Product not found")));
-    newCartItem.setQuantity(requestDTO.getQuantity());
-
-    BigDecimal price = requestDTO.getUnitPrice() != null ? requestDTO.getUnitPrice() : BigDecimal.ZERO;
-    newCartItem.setPrice(price);
-    newCartItem.setCart(cart);
-    cart.getCartItems().add(newCartItem);
-
+    cartRepository.save(cart);
     return cart.getId().toString();
   }
 
@@ -57,7 +52,7 @@ public class CartService {
     // it should be there, otherwise throw error
     CartItem cartItemToEdit = findCartItem(cart, requestDTO.getSku());
     if (cartItemToEdit == null) {
-      throw new IllegalArgumentException("Cart Item should be in cart");
+      throw new IllegalArgumentException("Cart Item should already be in cart");
     }
 
     int updatedQuantity = cartItemToEdit.getQuantity() + requestDTO.getQuantity();
@@ -91,11 +86,21 @@ public class CartService {
   private Cart createNewCart() {
     Cart newCart = new Cart();
     newCart.setCartItems(new ArrayList<>());
-    return cartRepository.save(newCart);
+    return newCart;
   }
 
   private CartItem findCartItem(Cart cart, String productSku) {
     return cart.getCartItems().stream().filter(item -> item.getProduct().getSku().equals(productSku)).findFirst()
         .orElse(null);
+  }
+
+  private CartItem createCartItem(CartItemRequestDTO requestDTO) {
+    CartItem newCartItem = new CartItem();
+
+    newCartItem.setProduct(productRepository.findBySku(requestDTO.getSku()).orElseThrow(
+        () -> new RuntimeException("Product not found")));
+    newCartItem.setQuantity(requestDTO.getQuantity());
+
+    return newCartItem;
   }
 }

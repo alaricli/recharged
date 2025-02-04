@@ -7,14 +7,14 @@ import com.recharged.backend.entity.CartItem;
 public class OrderItemRequestDTO {
   private String productId;
   private int quantity;
-  private String currency;
+  // private String currency;
   private BigDecimal price;
 
   public OrderItemRequestDTO(CartItem cartItem) {
     this.productId = cartItem.getProduct().getId();
-    this.currency = cartItem.getCurrency();
+    // this.currency = cartItem.getCurrency();
     this.quantity = cartItem.getQuantity();
-    this.price = cartItem.getPrice();
+    this.price = cartItem.getProduct().getUnitPriceCAD();
   }
 
   public String getProductId() {
@@ -33,13 +33,13 @@ public class OrderItemRequestDTO {
     this.quantity = quantity;
   }
 
-  public String getCurrency() {
-    return currency;
-  }
+  // public String getCurrency() {
+  // return currency;
+  // }
 
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
+  // public void setCurrency(String currency) {
+  // this.currency = currency;
+  // }
 
   public BigDecimal getPrice() {
     return price;

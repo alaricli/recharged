@@ -36,10 +36,12 @@ public class CheckoutService {
   // create checkout session
   public String createStripeCheckoutSession(CustomerOrderRequest requestDTO) throws StripeException {
     List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
+    String checkoutSessionCurrency = requestDTO.getCurrency();
 
     for (OrderItemRequestDTO item : requestDTO.getItems()) {
       SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
-          .setCurrency(item.getCurrency())
+          .setCurrency(
+              checkoutSessionCurrency)
           .build();
 
       SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()

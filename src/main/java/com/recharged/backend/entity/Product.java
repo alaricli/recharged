@@ -15,7 +15,7 @@ public class Product {
     @UuidGenerator
     @Column(name = "id", nullable = false, updatable = false)
     private String id;
-    private String productName;
+    private String name;
     private String brand;
     private String condition;
     private String color;
@@ -56,12 +56,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBrand() {

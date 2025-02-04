@@ -25,8 +25,6 @@ public class CartItem {
   private Product product;
 
   private int quantity;
-  private String currency;
-  private BigDecimal price;
 
   public Long getId() {
     return id;
@@ -52,27 +50,11 @@ public class CartItem {
     this.product = product;
   }
 
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-  public void setPrice(BigDecimal price) {
-    this.price = price;
-  }
-
   public Cart getCart() {
     return cart;
   }
 
   public void setCart(Cart cart) {
     this.cart = cart;
-  }
-
-  public String getCurrency() {
-    return currency;
-  }
-
-  public void setCurrency(String currency) {
-    this.currency = currency;
   }
 }

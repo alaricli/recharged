@@ -10,7 +10,7 @@ import com.recharged.backend.entity.Cart;
 public class CartResponseDTO {
   private Long cartId;
   private List<CartItemResponseDTO> items;
-  private BigDecimal totalPrice;
+  private BigDecimal totalPriceCAD;
   private LocalDateTime lastUpdated;
 
   public CartResponseDTO(Cart cart) {
@@ -18,7 +18,7 @@ public class CartResponseDTO {
     this.items = cart.getCartItems().stream()
         .map(CartItemResponseDTO::new)
         .collect(Collectors.toList());
-    this.totalPrice = calculateTotal(cart);
+    this.totalPriceCAD = calculateTotal(cart);
     this.lastUpdated = cart.getLastUpdatedDateTime();
   }
 
@@ -37,7 +37,7 @@ public class CartResponseDTO {
   }
 
   public BigDecimal getTotalPrice() {
-    return totalPrice;
+    return totalPriceCAD;
   }
 
   public LocalDateTime getLastUpdated() {

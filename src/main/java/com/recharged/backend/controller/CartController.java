@@ -73,10 +73,11 @@ public class CartController {
     return ResponseEntity.ok().build();
   }
 
+  // TODO: implement this
   @PostMapping("/checkout")
   public ResponseEntity<Void> checkoutCart(
       @CookieValue(value = "cartId", required = false) Long cartId) {
     // Implementation will be added later
-    return ResponseEntity.ok().build();
+    throw new UnsupportedOperationException("Not implemented yet");
   }
 }
