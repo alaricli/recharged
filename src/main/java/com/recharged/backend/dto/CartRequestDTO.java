@@ -1,7 +1,5 @@
 package com.recharged.backend.dto;
 
-import java.util.List;
-
 public class CartRequestDTO {
   private CustomerRequestDTO customer;
 

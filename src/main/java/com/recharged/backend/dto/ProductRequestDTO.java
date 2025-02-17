@@ -5,17 +5,19 @@ import java.util.List;
 
 public class ProductRequestDTO {
     private String productName;
+    private Boolean active;
     private String brand;
     private String condition;
     private String color;
     private Boolean hasOriginalPackaging;
+    private Boolean hasOriginalAccessories;
     private String blurb;
     private String description;
     private String notes;
+    private String statementDescription;
     private String category;
     private String subCategory;
     private BigDecimal unitCostCAD;
-    private BigDecimal unitPriceCAD;
     private Integer stock;
     private String itemNumber;
     private String upc;
@@ -25,6 +27,7 @@ public class ProductRequestDTO {
     private String mainImage;
     private List<String> tags;
     private List<String> productImages;
+    private List<StripePriceRequestDTO> stripePriceIds;
 
     public String getProductName() {
         return productName;
@@ -114,14 +117,6 @@ public class ProductRequestDTO {
         this.unitCostCAD = unitCostCAD;
     }
 
-    public BigDecimal getUnitPriceCAD() {
-        return unitPriceCAD;
-    }
-
-    public void setUnitPriceCAD(BigDecimal unitPriceCAD) {
-        this.unitPriceCAD = unitPriceCAD;
-    }
-
     public Integer getStock() {
         return stock;
     }
@@ -194,4 +189,35 @@ public class ProductRequestDTO {
         this.productImages = productImages;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean getHasOriginalAccessories() {
+        return hasOriginalAccessories;
+    }
+
+    public void setHasOriginalAccessories(Boolean hasOriginalAccessories) {
+        this.hasOriginalAccessories = hasOriginalAccessories;
+    }
+
+    public String getStatementDescription() {
+        return statementDescription;
+    }
+
+    public void setStatementDescription(String statementDescription) {
+        this.statementDescription = statementDescription;
+    }
+
+    public List<StripePriceRequestDTO> getStripePriceIds() {
+        return stripePriceIds;
+    }
+
+    public void setStripePriceIds(List<StripePriceRequestDTO> stripePriceIds) {
+        this.stripePriceIds = stripePriceIds;
+    }
 }

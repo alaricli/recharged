@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -16,20 +17,26 @@ public class Product {
     @Column(name = "id", nullable = false, updatable = false)
     private String id;
     private String name;
+    private Boolean active;
+    private LocalDateTime created;
     private String brand;
     private String condition;
     private String color;
     private Boolean hasOriginalPackaging;
+    private Boolean hasOriginalAccessories;
     @Column(columnDefinition = "TEXT")
     private String blurb;
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(columnDefinition = "TEXT")
     private String notes;
+    private String statementDescription;
     private String category;
     private String subCategory;
     private BigDecimal unitCostCAD;
-    private BigDecimal unitPriceCAD;
+    private String stripeProductId;
+    private String stripeTaxCodeId;
+    private List<StripePriceObject> stripePriceIds;
     private Integer stock;
     private String itemNumber;
     private String upc;
@@ -144,14 +151,6 @@ public class Product {
         this.unitCostCAD = unitCostCAD;
     }
 
-    public BigDecimal getUnitPriceCAD() {
-        return unitPriceCAD;
-    }
-
-    public void setUnitPriceCAD(BigDecimal unitPriceCAD) {
-        this.unitPriceCAD = unitPriceCAD;
-    }
-
     public Integer getStock() {
         return stock;
     }
@@ -224,4 +223,59 @@ public class Product {
         this.productImages = productImages;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public String getStatementDescription() {
+        return statementDescription;
+    }
+
+    public void setStatementDescription(String statementDescription) {
+        this.statementDescription = statementDescription;
+    }
+
+    public String getStripeTaxCodeId() {
+        return stripeTaxCodeId;
+    }
+
+    public void setStripeTaxCodeId(String taxCodeId) {
+        this.stripeTaxCodeId = taxCodeId;
+    }
+
+    public Boolean getHasOriginalAccessories() {
+        return hasOriginalAccessories;
+    }
+
+    public void setHasOriginalAccessories(Boolean hasOriginalAccessories) {
+        this.hasOriginalAccessories = hasOriginalAccessories;
+    }
+
+    public String getStripeProductId() {
+        return stripeProductId;
+    }
+
+    public void setStripeProductId(String stripeProductId) {
+        this.stripeProductId = stripeProductId;
+    }
+
+    public List<StripePriceObject> getStripePriceIds() {
+        return stripePriceIds;
+    }
+
+    public void setStripePriceIds(List<StripePriceObject> stripePriceIds) {
+        this.stripePriceIds = stripePriceIds;
+    }
 }

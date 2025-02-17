@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.recharged.backend.dto.CheckoutIntentDTO;
+import com.recharged.backend.dto.StripeRequestDTO;
 import com.recharged.backend.entity.CustomerOrder;
 import com.recharged.backend.repository.CustomerOrderRepository;
 import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-import com.stripe.exception.StripeException;
 
 import jakarta.annotation.PostConstruct;
 
@@ -32,52 +33,41 @@ public class CheckoutService {
     this.customerOrderRepository = customerOrderRepository;
   }
 
-  // create checkout session
-  // public String createStripeCheckoutSession(CheckoutIntentDTO requestDTO)
-  // throws StripeException {
-  // List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
-  // String checkoutSessionCurrency = requestDTO.getCurrency();
-
-  // for (OrderItemRequestDTO item : requestDTO.getItems()) {
-  // SessionCreateParams.LineItem.PriceData priceData =
-  // SessionCreateParams.LineItem.PriceData.builder()
-  // .setCurrency(
-  // checkoutSessionCurrency)
-  // .build();
-
-  // SessionCreateParams.LineItem lineItem =
-  // SessionCreateParams.LineItem.builder()
-  // .setQuantity((long) item.getQuantity())
-  // .setPriceData(priceData)
-  // .build();
-  // lineItems.add(lineItem);
-  // }
-
-  // SessionCreateParams params = SessionCreateParams.builder()
-  // .setSuccessUrl("https://localhost:3000/checkout/success")
-  // .setCancelUrl("https://localhost:3000/checkout/cancel")
-  // .addAllLineItem(
-  // lineItems)
-  // .setMode(SessionCreateParams.Mode.PAYMENT)
-  // .build();
-
-  // // create a "copy" by creating an order object and save it
-  // // mark the status of that object according to stripe's output
-
-  // Session session = Session.create(params);
-  // return session.getUrl();
-  // }
-
-  // helper
-  // create order from cart
+  // attach customer information such as contact and address to the order for now
+  // mark orderstatus as 'created' or 'unpaid' for now
+  // update order status once paid using callback from stripe api webhook
   public CustomerOrder createOrder(CheckoutIntentDTO requestDTO) {
-    // TODO: Implement the logic to create an order from checkout request
+    CustomerOrder newCustomerOrder = new CustomerOrder();
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  // helper
-  // change order status
+  public CustomerOrder editOrder(CheckoutIntentDTO requestDTO) {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
 
-  // helper
-  // save order
+  // create Stripe CheckoutIntent
+  // needs products (line items), accepted payment methods
+  public String createStripeCheckoutSession(StripeRequestDTO requestDTO) throws StripeException {
+    // helper to extract items using request.orderId
+    // another helper to convert each item to a line item
+    // add each line item
+
+    SessionCreateParams params = SessionCreateParams.builder()
+        .setSuccessUrl("https://example.com/success")
+        .setCancelUrl("https://localhost:3000")
+        .setCurrency(requestDTO.getCurrency())
+        .addLineItem(
+            SessionCreateParams.LineItem.builder()
+                .setPrice("price_1MotwRLkdIwHu7ixYcPLm5uZ")
+                .setQuantity(2L)
+                .build())
+        .setMode(SessionCreateParams.Mode.PAYMENT)
+        .build();
+
+    Session session = Session.create(params);
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  // helper to convert CartItem -> LineItem
+  // for each LineItem, need to create a Price Object for it and attach it too
 }
