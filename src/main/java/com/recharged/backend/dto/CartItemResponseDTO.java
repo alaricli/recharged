@@ -1,7 +1,5 @@
 package com.recharged.backend.dto;
 
-import java.math.BigDecimal;
-
 import com.recharged.backend.entity.CartItem;
 
 public class CartItemResponseDTO {
@@ -9,8 +7,8 @@ public class CartItemResponseDTO {
   private String sku;
   private String name;
   private String imageUrl;
-  private int quantity;
-  private BigDecimal price;
+  private Long quantity;
+  private Long price;
 
   public CartItemResponseDTO(CartItem cartItem) {
     this.id = cartItem.getId();
@@ -18,7 +16,6 @@ public class CartItemResponseDTO {
     this.name = cartItem.getProduct().getName();
     this.imageUrl = cartItem.getProduct().getMainImage(); // Ensure Product has
     this.quantity = cartItem.getQuantity();
-    this.price = cartItem.getProduct().getUnitPriceCAD();
   }
 
   public Long getId() {
@@ -53,20 +50,20 @@ public class CartItemResponseDTO {
     this.imageUrl = imageUrl;
   }
 
-  public int getQuantity() {
-    return quantity;
-  }
-
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
-  }
-
-  public BigDecimal getPrice() {
+  public Long getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(Long price) {
     this.price = price;
+  }
+
+  public Long getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(Long quantity) {
+    this.quantity = quantity;
   }
 
 }

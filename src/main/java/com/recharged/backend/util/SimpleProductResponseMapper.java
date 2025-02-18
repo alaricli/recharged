@@ -11,7 +11,6 @@ public class SimpleProductResponseMapper {
     SimpleProductResponseDTO dto = new SimpleProductResponseDTO();
     dto.setSku(product.getSku());
     dto.setProductName(product.getName());
-    dto.setUnitPrice(product.getUnitPriceCAD());
     dto.setMainImage(product.getMainImage());
     dto.setBlurb(product.getBlurb());
     dto.setBrand(product.getBrand());

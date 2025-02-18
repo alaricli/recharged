@@ -8,8 +8,8 @@ import com.recharged.backend.entity.StripePriceObject;
 import com.recharged.backend.repository.ProductRepository;
 import com.recharged.backend.util.ProductRequestMapper;
 import com.recharged.backend.util.SimpleProductResponseMapper;
+import com.stripe.exception.StripeException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,18 +36,38 @@ public class ProductService {
         List<Product> newProducts = new ArrayList<>();
         for (ProductRequestDTO productRequestDTO : productRequests) {
             Product newProduct = ProductRequestMapper.map(productRequestDTO);
-            // make a stripeProduct, then attach the stripeId to our product
-            String associatedStripeProductId = stripeService.createStripeProduct(productRequestDTO);
-            newProduct.setStripeProductId(associatedStripeProductId);
-            // make priceIds
-            List<StripePriceObject> associatedStripePriceObjects = new ArrayList<>();
-            for (StripePriceRequestDTO stripePriceRequestDTO : productRequestDTO.getStripePriceIds()) {
-                StripePriceObject createdPriceObject = stripeService.createStripePriceObject(stripePriceRequestDTO,
-                        associatedStripeProductId);
-                associatedStripePriceObjects.add(createdPriceObject);
+            String associatedStripeProductId = "";
+
+            // try to create StripeProduct with input
+            try {
+                associatedStripeProductId = stripeService.createStripeProduct(productRequestDTO);
+            } catch (StripeException e) {
+                System.err.println("Failed to create Stripe product: " + e.getMessage());
+                e.printStackTrace();
             }
-            ;
-            newProduct.setStripePriceIds(associatedStripePriceObjects);
+
+            List<StripePriceObject> associatedStripePriceObjects = new ArrayList<>();
+
+            if (!associatedStripeProductId.equals("")) {
+                newProduct.setStripeProductId(associatedStripeProductId);
+
+                for (StripePriceRequestDTO stripePriceRequestDTO : productRequestDTO.getStripePriceIds()) {
+                    try {
+                        StripePriceObject createdPriceObject = stripeService.createStripePriceObject(
+                                stripePriceRequestDTO,
+                                associatedStripeProductId);
+                        associatedStripePriceObjects.add(createdPriceObject);
+                    } catch (StripeException e) {
+                        System.err.println("Failed to create Stripe Price Object: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (!associatedStripePriceObjects.isEmpty()) {
+                newProduct.setStripePriceIds(associatedStripePriceObjects);
+            }
+
             newProducts.add(newProduct);
         }
 

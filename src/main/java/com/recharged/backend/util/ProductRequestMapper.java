@@ -20,7 +20,6 @@ public class ProductRequestMapper {
         product.setCategory(dto.getCategory());
         product.setSubCategory(dto.getSubCategory());
         product.setUnitCostCAD(dto.getUnitCostCAD());
-        product.setUnitPriceCAD(dto.getUnitPriceCAD());
         product.setStock(dto.getStock());
         product.setItemNumber(dto.getItemNumber());
         product.setUpc(dto.getUpc());

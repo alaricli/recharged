@@ -25,6 +25,8 @@ public class Cart {
   private List<CartItem> cartItems = new ArrayList<>();
 
   private LocalDateTime lastUpdatedDateTime;
+  private String currency;
+  private Long cartTotal;
 
   public Long getId() {
     return id;

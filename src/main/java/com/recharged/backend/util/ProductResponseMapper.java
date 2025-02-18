@@ -21,7 +21,6 @@ public class ProductResponseMapper {
         dto.setCategory(product.getCategory());
         dto.setSubCategory(product.getSubCategory());
         dto.setUnitCostCAD(product.getUnitCostCAD());
-        dto.setUnitPriceCAD(product.getUnitPriceCAD());
         dto.setStock(product.getStock());
         dto.setItemNumber(product.getItemNumber());
         dto.setUpc(product.getUpc());

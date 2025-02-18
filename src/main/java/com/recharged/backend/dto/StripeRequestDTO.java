@@ -2,7 +2,7 @@ package com.recharged.backend.dto;
 
 public class StripeRequestDTO {
   private Long orderId;
-  private String currency;
+  private CartRequestDTO cartRequestDTO;
 
   public Long getOrderId() {
     return orderId;
@@ -12,11 +12,12 @@ public class StripeRequestDTO {
     this.orderId = orderId;
   }
 
-  public String getCurrency() {
-    return currency;
+  public CartRequestDTO getCartRequestDTO() {
+    return cartRequestDTO;
   }
 
-  public void setCurrency(String currency) {
-    this.currency = currency;
+  public void setCartRequestDTO(CartRequestDTO cartRequestDTO) {
+    this.cartRequestDTO = cartRequestDTO;
   }
+
 }

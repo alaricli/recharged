@@ -55,7 +55,7 @@ public class CartService {
       throw new IllegalArgumentException("Cart Item should already be in cart");
     }
 
-    int updatedQuantity = cartItemToEdit.getQuantity() + requestDTO.getQuantity();
+    Long updatedQuantity = cartItemToEdit.getQuantity() + requestDTO.getQuantity();
     // remove the cartItem from the cart if the new quantity is going to be 0,
     // otherwise simply update the quantity
     if (updatedQuantity <= 0) {

@@ -18,15 +18,16 @@ public class CartResponseDTO {
     this.items = cart.getCartItems().stream()
         .map(CartItemResponseDTO::new)
         .collect(Collectors.toList());
-    this.totalPriceCAD = calculateTotal(cart);
+    // this.totalPriceCAD = calculateTotal(cart);
     this.lastUpdated = cart.getLastUpdatedDateTime();
   }
 
-  private BigDecimal calculateTotal(Cart cart) {
-    return cart.getCartItems().stream()
-        .map(item -> item.getProduct().getUnitPriceCAD().multiply(BigDecimal.valueOf(item.getQuantity())))
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
-  }
+  // private BigDecimal calculateTotal(Cart cart) {
+  // return cart.getCartItems().stream()
+  // .map(item ->
+  // item.getProduct().getUnitPriceCAD().multiply(BigDecimal.valueOf(item.getQuantity())))
+  // .reduce(BigDecimal.ZERO, BigDecimal::add);
+  // }
 
   public Long getCartId() {
     return cartId;

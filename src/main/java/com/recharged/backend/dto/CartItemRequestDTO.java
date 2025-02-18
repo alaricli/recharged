@@ -2,13 +2,13 @@ package com.recharged.backend.dto;
 
 public class CartItemRequestDTO {
   private String sku;
-  private int quantity;
+  private Long quantity;
 
-  public int getQuantity() {
+  public Long getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(int quantity) {
+  public void setQuantity(Long quantity) {
     this.quantity = quantity;
   }
 
