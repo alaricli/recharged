@@ -64,4 +64,21 @@ public class Cart {
   public void setLastUpdatedDateTime(LocalDateTime lastUpdatedDateTime) {
     this.lastUpdatedDateTime = lastUpdatedDateTime;
   }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(String currency) {
+    this.currency = currency;
+  }
+
+  public Long getCartTotal() {
+    return cartTotal;
+  }
+
+  public void setCartTotal(Long cartTotal) {
+    this.cartTotal = cartTotal;
+  }
+
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/webhooks")
-public class WebhookController {
+public class StripeController {
 
   @PostMapping("/stripe")
   public String handleStripeWebhook(@RequestBody String entity) {

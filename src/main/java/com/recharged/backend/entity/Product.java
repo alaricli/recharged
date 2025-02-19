@@ -7,23 +7,21 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @UuidGenerator
-    @Column(name = "id", nullable = false, updatable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private Boolean active;
+    @Column(nullable = false)
+    private Boolean active = true;
+    @CreationTimestamp
     private LocalDateTime created;
     private String brand;
     private String condition;
     private String color;
-    private Boolean hasOriginalPackaging;
-    private Boolean hasOriginalAccessories;
     @Column(columnDefinition = "TEXT")
     private String blurb;
     @Column(columnDefinition = "TEXT")
@@ -33,34 +31,29 @@ public class Product {
     private String statementDescription;
     private String category;
     private String subCategory;
+    @Column(precision = 15, scale = 2)
     private BigDecimal unitCostCAD;
     private String stripeProductId;
     private String stripeTaxCodeId;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<StripePriceObject> stripePriceIds;
     private Integer stock;
-    private String itemNumber;
-    private String upc;
     @Column(nullable = false)
     @NotBlank
     private String sku;
     private String modelNumber;
     private String serialNumber;
-    private String mainImage;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "product_tags")
+    @Column(name = "tag", length = 50)
     private List<String> tags;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "product_images")
     private List<String> productImages;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public String getMainImage() {
+        return productImages != null && !productImages.isEmpty() ? productImages.get(0) : null;
     }
 
     public String getName() {
@@ -93,14 +86,6 @@ public class Product {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public Boolean getHasOriginalPackaging() {
-        return hasOriginalPackaging;
-    }
-
-    public void setHasOriginalPackaging(Boolean hasOriginalPackaging) {
-        this.hasOriginalPackaging = hasOriginalPackaging;
     }
 
     public String getBlurb() {
@@ -159,22 +144,6 @@ public class Product {
         this.stock = stock;
     }
 
-    public String getItemNumber() {
-        return itemNumber;
-    }
-
-    public void setItemNumber(String itemNumber) {
-        this.itemNumber = itemNumber;
-    }
-
-    public String getUpc() {
-        return upc;
-    }
-
-    public void setUpc(String upc) {
-        this.upc = upc;
-    }
-
     public String getSku() {
         return sku;
     }
@@ -197,14 +166,6 @@ public class Product {
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
-    }
-
-    public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
     }
 
     public List<String> getTags() {
@@ -255,14 +216,6 @@ public class Product {
         this.stripeTaxCodeId = taxCodeId;
     }
 
-    public Boolean getHasOriginalAccessories() {
-        return hasOriginalAccessories;
-    }
-
-    public void setHasOriginalAccessories(Boolean hasOriginalAccessories) {
-        this.hasOriginalAccessories = hasOriginalAccessories;
-    }
-
     public String getStripeProductId() {
         return stripeProductId;
     }
@@ -277,5 +230,13 @@ public class Product {
 
     public void setStripePriceIds(List<StripePriceObject> stripePriceIds) {
         this.stripePriceIds = stripePriceIds;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

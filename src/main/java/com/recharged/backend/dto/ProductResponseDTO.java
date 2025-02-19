@@ -2,30 +2,32 @@ package com.recharged.backend.dto;
 
 import java.util.List;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class ProductResponseDTO {
-    private String id;
+    private Long id;
     private String productName;
     private String brand;
     private String condition;
     private String color;
-    private Boolean hasOriginalPackaging;
     private String blurb;
     private String description;
     private String notes;
+    private String statementDescription;
     private String category;
     private String subCategory;
     private BigDecimal unitCostCAD;
-    private BigDecimal unitPriceCAD;
+    private Boolean active;
+    private LocalDateTime created;
+    private String stripeProductId;
+    private String stripeTaxCodeId;
     private Integer stock;
-    private String itemNumber;
-    private String upc;
     private String sku;
     private String modelNumber;
     private String serialNumber;
-    private String mainImage;
     private List<String> tags;
     private List<String> productImages;
+    private List<StripePriceResponseDTO> stripePriceIds;
 
     public String getProductName() {
         return productName;
@@ -57,14 +59,6 @@ public class ProductResponseDTO {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public Boolean getHasOriginalPackaging() {
-        return hasOriginalPackaging;
-    }
-
-    public void setHasOriginalPackaging(Boolean hasOriginalPackaging) {
-        this.hasOriginalPackaging = hasOriginalPackaging;
     }
 
     public String getBlurb() {
@@ -115,14 +109,6 @@ public class ProductResponseDTO {
         this.unitCostCAD = unitCostCAD;
     }
 
-    public BigDecimal getUnitPriceCAD() {
-        return unitPriceCAD;
-    }
-
-    public void setUnitPriceCAD(BigDecimal unitPriceCAD) {
-        this.unitPriceCAD = unitPriceCAD;
-    }
-
     public Integer getStock() {
         return stock;
     }
@@ -131,20 +117,52 @@ public class ProductResponseDTO {
         this.stock = stock;
     }
 
-    public String getItemNumber() {
-        return itemNumber;
+    public String getStatementDescription() {
+        return statementDescription;
     }
 
-    public void setItemNumber(String itemNumber) {
-        this.itemNumber = itemNumber;
+    public void setStatementDescription(String statementDescription) {
+        this.statementDescription = statementDescription;
     }
 
-    public String getUpc() {
-        return upc;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setUpc(String upc) {
-        this.upc = upc;
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public String getStripeProductId() {
+        return stripeProductId;
+    }
+
+    public void setStripeProductId(String stripeProductId) {
+        this.stripeProductId = stripeProductId;
+    }
+
+    public String getStripeTaxCodeId() {
+        return stripeTaxCodeId;
+    }
+
+    public void setStripeTaxCodeId(String stripeTaxCodeId) {
+        this.stripeTaxCodeId = stripeTaxCodeId;
+    }
+
+    public List<StripePriceResponseDTO> getStripePriceIds() {
+        return stripePriceIds;
+    }
+
+    public void setStripePriceIds(List<StripePriceResponseDTO> stripePriceIds) {
+        this.stripePriceIds = stripePriceIds;
     }
 
     public String getSku() {
@@ -172,11 +190,7 @@ public class ProductResponseDTO {
     }
 
     public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
+        return productImages != null && !productImages.isEmpty() ? productImages.get(0) : null;
     }
 
     public List<String> getTags() {
@@ -195,11 +209,11 @@ public class ProductResponseDTO {
         this.productImages = productImages;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

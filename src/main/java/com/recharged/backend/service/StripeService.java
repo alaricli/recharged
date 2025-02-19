@@ -1,15 +1,17 @@
 package com.recharged.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.recharged.backend.dto.ProductRequestDTO;
 import com.recharged.backend.dto.StripePriceRequestDTO;
+import com.recharged.backend.entity.Product;
 import com.recharged.backend.entity.StripePriceObject;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Price;
-import com.stripe.model.Product;
 import com.stripe.param.PriceCreateParams;
 import com.stripe.param.ProductCreateParams;
 
@@ -27,35 +29,37 @@ public class StripeService {
 
   // basically makes a copy of product for stripe
   // returns the stripe product id;
-  public String createStripeProduct(ProductRequestDTO requestDTO) throws StripeException {
+  public void createStripeProduct(Product product) throws StripeException {
     ProductCreateParams params = ProductCreateParams.builder()
-        .setName(requestDTO.getProductName())
+        .setName(product.getName())
         .build();
 
-    Product product = Product.create(params);
-    return product.getId();
+    com.stripe.model.Product stripeProduct = com.stripe.model.Product.create(params);
+    product.setStripeProductId(stripeProduct.getId());
   }
 
   // takes in priceobjectrequest
   // returns the price id that is made
-  public StripePriceObject createStripePriceObject(StripePriceRequestDTO requestDTO, String stripeProductId)
+  public void createStripePriceObject(Product product)
       throws StripeException {
-    PriceCreateParams params = PriceCreateParams.builder()
-        .setCurrency(requestDTO.getCurrency())
-        .setUnitAmount(requestDTO.getUnitAmount())
-        .setProduct(stripeProductId)
-        .build();
+    List<StripePriceObject> priceObjects = product.getStripePriceIds();
+    String stripeProductId = product.getStripeProductId();
 
-    Price price = Price.create(params);
-    StripePriceObject newStripePriceObject = mapPriceObject(price);
-    return newStripePriceObject;
+    for (StripePriceObject priceObject : priceObjects) {
+      PriceCreateParams params = PriceCreateParams.builder()
+          .setCurrency(priceObject.getCurrency())
+          .setUnitAmount(priceObject.getUnitAmount())
+          .setProduct(stripeProductId)
+          .build();
+
+      try {
+        Price createdPrice = Price.create(params);
+        priceObject.setStripePriceId(createdPrice.getId());
+      } catch (StripeException e) {
+        System.err.println("Failed to create Stripe price: " + e.getMessage());
+        e.printStackTrace();
+      }
+    }
   }
 
-  private StripePriceObject mapPriceObject(Price stripePriceObject) {
-    StripePriceObject newStripePriceObject = new StripePriceObject();
-    newStripePriceObject.setStripePriceId(stripePriceObject.getId());
-    newStripePriceObject.setCurrency(stripePriceObject.getCurrency());
-    newStripePriceObject.setUnitAmount(stripePriceObject.getUnitAmount());
-    return newStripePriceObject;
-  }
 }

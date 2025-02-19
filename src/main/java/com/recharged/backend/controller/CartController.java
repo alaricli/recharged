@@ -73,7 +73,6 @@ public class CartController {
     return ResponseEntity.ok().build();
   }
 
-  // TODO: implement this
   @PostMapping("/checkout")
   public ResponseEntity<Void> checkoutCart(
       @CookieValue(value = "cartId", required = false) Long cartId) {

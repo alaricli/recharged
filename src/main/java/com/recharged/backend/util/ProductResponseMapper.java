@@ -14,7 +14,6 @@ public class ProductResponseMapper {
         dto.setBrand(product.getBrand());
         dto.setCondition(product.getCondition());
         dto.setColor(product.getColor());
-        dto.setHasOriginalPackaging(product.getHasOriginalPackaging());
         dto.setBlurb(product.getBlurb());
         dto.setDescription(product.getDescription());
         dto.setNotes(product.getNotes());
@@ -22,12 +21,9 @@ public class ProductResponseMapper {
         dto.setSubCategory(product.getSubCategory());
         dto.setUnitCostCAD(product.getUnitCostCAD());
         dto.setStock(product.getStock());
-        dto.setItemNumber(product.getItemNumber());
-        dto.setUpc(product.getUpc());
         dto.setSku(product.getSku());
         dto.setModelNumber(product.getModelNumber());
         dto.setSerialNumber(product.getSerialNumber());
-        dto.setMainImage(product.getMainImage());
         dto.setTags(product.getTags());
         dto.setProductImages(product.getProductImages());
 
