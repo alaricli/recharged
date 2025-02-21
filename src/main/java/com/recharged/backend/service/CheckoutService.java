@@ -6,14 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.recharged.backend.dto.CartItemRequestDTO;
 import com.recharged.backend.dto.CheckoutIntentDTO;
-import com.recharged.backend.dto.StripeRequestDTO;
+import com.recharged.backend.entity.Cart;
+import com.recharged.backend.entity.CartItem;
 import com.recharged.backend.entity.CustomerOrder;
-import com.recharged.backend.entity.Product;
-import com.recharged.backend.entity.StripePriceObject;
+import com.recharged.backend.repository.CartRepository;
 import com.recharged.backend.repository.CustomerOrderRepository;
-import com.recharged.backend.repository.ProductRepository;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
@@ -32,17 +30,18 @@ public class CheckoutService {
   }
 
   private final CustomerOrderRepository customerOrderRepository;
-  private final ProductRepository productRepository;
+  private final CartRepository cartRepository;
 
-  public CheckoutService(CustomerOrderRepository customerOrderRepository, ProductRepository productRepository) {
+  public CheckoutService(CustomerOrderRepository customerOrderRepository,
+      CartRepository cartRepository) {
     this.customerOrderRepository = customerOrderRepository;
-    this.productRepository = productRepository;
+    this.cartRepository = cartRepository;
   }
 
   // attach customer information such as contact and address to the order for now
   // mark orderstatus as 'created' or 'unpaid' for now
   // update order status once paid using callback from stripe api webhook
-  public CustomerOrder createOrder(CheckoutIntentDTO requestDTO) {
+  public CustomerOrder createOrder(Long cartId) {
     CustomerOrder newCustomerOrder = new CustomerOrder();
     newCustomerOrder.setOrderStatus("created");
     return customerOrderRepository.save(newCustomerOrder);
@@ -54,45 +53,41 @@ public class CheckoutService {
 
   // create Stripe CheckoutIntent
   // needs products (line items), accepted payment methods
-  public String createStripeCheckoutSession(StripeRequestDTO requestDTO) throws StripeException {
+  public String createStripeCheckout(Long cartId) throws StripeException {
     // helper to extract items using request.orderId
     // another helper to convert each item to a line item
     // add each line item
-    List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
-    String currency = requestDTO.getCartRequestDTO().getCurrency();
 
-    for (CartItemRequestDTO cartItemRequestDTO : requestDTO.getCartRequestDTO().getCartItems()) {
-      SessionCreateParams.LineItem lineItem = createLineItem(cartItemRequestDTO, currency);
+    Cart cart = cartRepository.findById(cartId)
+        .orElseThrow(() -> new IllegalArgumentException("Cart not found for ID: " + cartId));
+
+    List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
+
+    for (CartItem cartItem : cart.getCartItems()) {
+      SessionCreateParams.LineItem lineItem = createLineItem(cartItem);
       lineItems.add(lineItem);
     }
 
     SessionCreateParams params = SessionCreateParams.builder()
         .setSuccessUrl("https://example.com/success")
         .setCancelUrl("https://localhost:3000")
-        .setCurrency(requestDTO.getCartRequestDTO().getCurrency())
         .addAllLineItem(lineItems)
         .setMode(SessionCreateParams.Mode.PAYMENT)
         .build();
 
     Session session = Session.create(params);
+    CustomerOrder order = createOrder(cartId);
+    order.setStripeSessionId(session.getId());
+    order.setOrderStatus("created");
+    customerOrderRepository.save(order);
     return session.getUrl();
   }
 
   // helper to convert CartItem -> LineItem
-  private SessionCreateParams.LineItem createLineItem(CartItemRequestDTO cartItemRequestDTO, String currency) {
-    Product product = productRepository.findBySku(cartItemRequestDTO.getSku())
-        .orElseThrow(() -> new IllegalArgumentException("Product not found for SKU: " + cartItemRequestDTO.getSku()));
-
-    String priceId = product.getStripePriceIds().stream()
-        .filter(item -> item.getCurrency().equalsIgnoreCase(currency))
-        .map(StripePriceObject::getStripePriceId)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Price ID not found for the given currency: " + currency));
-
+  private SessionCreateParams.LineItem createLineItem(CartItem cartItem) {
     return SessionCreateParams.LineItem.builder()
-        .setPrice(priceId)
-        .setQuantity(Long.valueOf(cartItemRequestDTO
-            .getQuantity()))
+        .setPrice(cartItem.getProduct().getStripePriceId())
+        .setQuantity(cartItem.getQuantity())
         .build();
   }
 }

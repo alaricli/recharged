@@ -1,9 +1,10 @@
 package com.recharged.backend.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,17 +19,15 @@ public class CustomerOrder {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-
   @OneToOne
   private Customer customer;
-
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItem> orderItems = new ArrayList<>();
   private String stripeSessionId;
   private String orderStatus;
-  private String currency;
-  private BigDecimal orderTotal;
-  private LocalDateTime orderDateTime;
+  @CreationTimestamp
+  private LocalDateTime created;
+  private Long orderSubTotal;
 
   public Long getId() {
     return id;
@@ -70,28 +69,20 @@ public class CustomerOrder {
     this.orderStatus = orderStatus;
   }
 
-  public String getCurrency() {
-    return currency;
+  public LocalDateTime getCreated() {
+    return created;
   }
 
-  public void setCurrency(String currency) {
-    this.currency = currency;
+  public void setCreated(LocalDateTime created) {
+    this.created = created;
   }
 
-  public BigDecimal getOrderTotal() {
-    return orderTotal;
+  public Long getOrderSubTotal() {
+    return orderItems.stream().mapToLong(item -> item.getProduct().getUnitAmount() * item.getQuantity()).sum();
   }
 
-  public void setOrderTotal(BigDecimal orderTotal) {
-    this.orderTotal = orderTotal;
-  }
-
-  public LocalDateTime getOrderDateTime() {
-    return orderDateTime;
-  }
-
-  public void setOrderDateTime(LocalDateTime orderDateTime) {
-    this.orderDateTime = orderDateTime;
+  public void setOrderSubTotal(Long orderSubTotal) {
+    this.orderSubTotal = orderSubTotal;
   }
 
 }

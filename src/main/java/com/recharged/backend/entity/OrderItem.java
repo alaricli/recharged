@@ -1,7 +1,5 @@
 package com.recharged.backend.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +22,6 @@ public class OrderItem {
   @JoinColumn(name = "product_id", nullable = false)
   private Product product;
   private int quantity;
-  private String currency;
-  private BigDecimal price;
 
   public Long getId() {
     return id;
@@ -57,22 +53,6 @@ public class OrderItem {
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
-  }
-
-  public String getCurrency() {
-    return currency;
-  }
-
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-  public void setPrice(BigDecimal price) {
-    this.price = price;
   }
 
 }

@@ -3,7 +3,6 @@ package com.recharged.backend.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,15 +27,15 @@ public class Product {
     private String description;
     @Column(columnDefinition = "TEXT")
     private String notes;
-    private String statementDescription;
     private String category;
     private String subCategory;
     @Column(precision = 15, scale = 2)
-    private BigDecimal unitCostCAD;
+    private Long unitCost;
+    private Long unitAmount;
     private String stripeProductId;
+    private String stripePriceId;
     private String stripeTaxCodeId;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<StripePriceObject> stripePriceIds;
+    private String stripeStatementDescription;
     private Integer stock;
     @Column(nullable = false)
     @NotBlank
@@ -128,14 +127,6 @@ public class Product {
         this.subCategory = subCategory;
     }
 
-    public BigDecimal getUnitCostCAD() {
-        return unitCostCAD;
-    }
-
-    public void setUnitCostCAD(BigDecimal unitCostCAD) {
-        this.unitCostCAD = unitCostCAD;
-    }
-
     public Integer getStock() {
         return stock;
     }
@@ -200,14 +191,6 @@ public class Product {
         this.created = created;
     }
 
-    public String getStatementDescription() {
-        return statementDescription;
-    }
-
-    public void setStatementDescription(String statementDescription) {
-        this.statementDescription = statementDescription;
-    }
-
     public String getStripeTaxCodeId() {
         return stripeTaxCodeId;
     }
@@ -224,14 +207,6 @@ public class Product {
         this.stripeProductId = stripeProductId;
     }
 
-    public List<StripePriceObject> getStripePriceIds() {
-        return stripePriceIds;
-    }
-
-    public void setStripePriceIds(List<StripePriceObject> stripePriceIds) {
-        this.stripePriceIds = stripePriceIds;
-    }
-
     public Long getId() {
         return id;
     }
@@ -239,4 +214,37 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getUnitCost() {
+        return unitCost;
+    }
+
+    public void setUnitCost(Long unitCost) {
+        this.unitCost = unitCost;
+    }
+
+    public Long getUnitAmount() {
+        return unitAmount;
+    }
+
+    public void setUnitAmount(Long unitAmount) {
+        this.unitAmount = unitAmount;
+    }
+
+    public String getStripePriceId() {
+        return stripePriceId;
+    }
+
+    public void setStripePriceId(String stripePriceId) {
+        this.stripePriceId = stripePriceId;
+    }
+
+    public String getStripeStatementDescription() {
+        return stripeStatementDescription;
+    }
+
+    public void setStripeStatementDescription(String stripeStatementDescription) {
+        this.stripeStatementDescription = stripeStatementDescription;
+    }
+
 }

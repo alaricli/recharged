@@ -17,16 +17,12 @@ public class Cart {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-
   @OneToOne
   private Customer customer;
-
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<CartItem> cartItems = new ArrayList<>();
-
   private LocalDateTime lastUpdatedDateTime;
-  private String currency;
-  private Long cartTotal;
+  private Long cartSubTotal;
 
   public Long getId() {
     return id;
@@ -65,20 +61,12 @@ public class Cart {
     this.lastUpdatedDateTime = lastUpdatedDateTime;
   }
 
-  public String getCurrency() {
-    return currency;
+  public Long getCartSubTotal() {
+    return cartItems.stream().mapToLong(item -> item.getProduct().getUnitAmount() * item.getQuantity()).sum();
   }
 
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-  public Long getCartTotal() {
-    return cartTotal;
-  }
-
-  public void setCartTotal(Long cartTotal) {
-    this.cartTotal = cartTotal;
+  public void setCartSubTotal(Long cartSubTotal) {
+    this.cartSubTotal = cartSubTotal;
   }
 
 }

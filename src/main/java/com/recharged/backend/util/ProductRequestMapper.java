@@ -9,7 +9,7 @@ import com.recharged.backend.entity.Product;
 public class ProductRequestMapper {
     public static Product map(ProductRequestDTO dto) {
         Product product = new Product();
-        product.setName(dto.getProductName());
+        product.setName(dto.getName());
         product.setBrand(dto.getBrand());
         product.setCondition(dto.getCondition());
         product.setColor(dto.getColor());
@@ -18,7 +18,8 @@ public class ProductRequestMapper {
         product.setNotes(dto.getNotes());
         product.setCategory(dto.getCategory());
         product.setSubCategory(dto.getSubCategory());
-        product.setUnitCostCAD(dto.getUnitCostCAD());
+        product.setUnitCost(dto.getUnitCost());
+        product.setUnitAmount(dto.getUnitAmount()); // Make sure to add this!
         product.setStock(dto.getStock());
         product.setSku(dto.getSku());
         product.setModelNumber(dto.getModelNumber());

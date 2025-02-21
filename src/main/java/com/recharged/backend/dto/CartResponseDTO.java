@@ -1,6 +1,5 @@
 package com.recharged.backend.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,24 +9,17 @@ import com.recharged.backend.entity.Cart;
 public class CartResponseDTO {
   private Long cartId;
   private List<CartItemResponseDTO> items;
-  private BigDecimal totalPriceCAD;
   private LocalDateTime lastUpdated;
+  private Long cartSubTotal;
 
   public CartResponseDTO(Cart cart) {
     this.cartId = cart.getId();
     this.items = cart.getCartItems().stream()
         .map(CartItemResponseDTO::new)
         .collect(Collectors.toList());
-    // this.totalPriceCAD = calculateTotal(cart);
     this.lastUpdated = cart.getLastUpdatedDateTime();
+    this.cartSubTotal = cart.getCartSubTotal();
   }
-
-  // private BigDecimal calculateTotal(Cart cart) {
-  // return cart.getCartItems().stream()
-  // .map(item ->
-  // item.getProduct().getUnitPriceCAD().multiply(BigDecimal.valueOf(item.getQuantity())))
-  // .reduce(BigDecimal.ZERO, BigDecimal::add);
-  // }
 
   public Long getCartId() {
     return cartId;
@@ -37,11 +29,28 @@ public class CartResponseDTO {
     return items;
   }
 
-  public BigDecimal getTotalPrice() {
-    return totalPriceCAD;
-  }
-
   public LocalDateTime getLastUpdated() {
     return lastUpdated;
   }
+
+  public void setCartId(Long cartId) {
+    this.cartId = cartId;
+  }
+
+  public void setItems(List<CartItemResponseDTO> items) {
+    this.items = items;
+  }
+
+  public void setLastUpdated(LocalDateTime lastUpdated) {
+    this.lastUpdated = lastUpdated;
+  }
+
+  public Long getCartSubTotal() {
+    return cartSubTotal;
+  }
+
+  public void setCartSubTotal(Long cartSubTotal) {
+    this.cartSubTotal = cartSubTotal;
+  }
+
 }

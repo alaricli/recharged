@@ -1,40 +1,40 @@
 package com.recharged.backend.dto;
 
 import java.util.List;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ProductResponseDTO {
     private Long id;
-    private String productName;
+    private String name;
     private String brand;
     private String condition;
     private String color;
     private String blurb;
     private String description;
     private String notes;
-    private String statementDescription;
     private String category;
     private String subCategory;
-    private BigDecimal unitCostCAD;
+    private Long unitCost;
+    private Long unitAmount;
     private Boolean active;
     private LocalDateTime created;
     private String stripeProductId;
+    private String stripePriceId;
     private String stripeTaxCodeId;
+    private String stripeStatementDescription;
     private Integer stock;
     private String sku;
     private String modelNumber;
     private String serialNumber;
     private List<String> tags;
     private List<String> productImages;
-    private List<StripePriceResponseDTO> stripePriceIds;
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String productName) {
+        this.name = productName;
     }
 
     public String getBrand() {
@@ -101,28 +101,12 @@ public class ProductResponseDTO {
         this.subCategory = subCategory;
     }
 
-    public BigDecimal getUnitCostCAD() {
-        return unitCostCAD;
-    }
-
-    public void setUnitCostCAD(BigDecimal unitCostCAD) {
-        this.unitCostCAD = unitCostCAD;
-    }
-
     public Integer getStock() {
         return stock;
     }
 
     public void setStock(Integer stock) {
         this.stock = stock;
-    }
-
-    public String getStatementDescription() {
-        return statementDescription;
-    }
-
-    public void setStatementDescription(String statementDescription) {
-        this.statementDescription = statementDescription;
     }
 
     public Boolean getActive() {
@@ -155,14 +139,6 @@ public class ProductResponseDTO {
 
     public void setStripeTaxCodeId(String stripeTaxCodeId) {
         this.stripeTaxCodeId = stripeTaxCodeId;
-    }
-
-    public List<StripePriceResponseDTO> getStripePriceIds() {
-        return stripePriceIds;
-    }
-
-    public void setStripePriceIds(List<StripePriceResponseDTO> stripePriceIds) {
-        this.stripePriceIds = stripePriceIds;
     }
 
     public String getSku() {
@@ -215,6 +191,38 @@ public class ProductResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUnitCost() {
+        return unitCost;
+    }
+
+    public void setUnitCost(Long unitCost) {
+        this.unitCost = unitCost;
+    }
+
+    public Long getUnitAmount() {
+        return unitAmount;
+    }
+
+    public void setUnitAmount(Long unitAmount) {
+        this.unitAmount = unitAmount;
+    }
+
+    public String getStripePriceId() {
+        return stripePriceId;
+    }
+
+    public void setStripePriceId(String stripePriceId) {
+        this.stripePriceId = stripePriceId;
+    }
+
+    public String getStripeStatementDescription() {
+        return stripeStatementDescription;
+    }
+
+    public void setStripeStatementDescription(String stripeStatementDescription) {
+        this.stripeStatementDescription = stripeStatementDescription;
     }
 
 }

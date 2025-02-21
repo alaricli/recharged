@@ -6,6 +6,8 @@ import com.recharged.backend.dto.CartItemRequestDTO;
 import com.recharged.backend.dto.CartResponseDTO;
 import com.recharged.backend.entity.Cart;
 import com.recharged.backend.service.CartService;
+import com.recharged.backend.service.CheckoutService;
+import com.stripe.exception.StripeException;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,9 +24,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/cart")
 public class CartController {
   private final CartService cartService;
+  private final CheckoutService checkoutService;
 
-  public CartController(CartService cartService) {
+  public CartController(CartService cartService, CheckoutService checkoutService) {
     this.cartService = cartService;
+    this.checkoutService = checkoutService;
   }
 
   @GetMapping("/get")
@@ -66,17 +70,26 @@ public class CartController {
   @PostMapping("/edit")
   public ResponseEntity<Void> editItemInCart(
       @CookieValue(value = "cartId", required = true) Long cartId,
-      @RequestBody CartItemRequestDTO requestDTO,
+      @RequestBody CartItemRequestDTO cartItemRequestDTO,
       HttpServletResponse response) {
 
-    cartService.addCartItemToCart(cartId, requestDTO);
+    cartService.editItemInCart(cartId, cartItemRequestDTO);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/checkout")
-  public ResponseEntity<Void> checkoutCart(
+  public ResponseEntity<String> checkoutCart(
       @CookieValue(value = "cartId", required = false) Long cartId) {
-    // Implementation will be added later
-    throw new UnsupportedOperationException("Not implemented yet");
+    String checkoutUrl;
+
+    try {
+      checkoutUrl = checkoutService.createStripeCheckout(cartId);
+    } catch (StripeException e) {
+      e.printStackTrace();
+      System.err.println("Stripe Checkout failed: " + e.getMessage());
+      checkoutUrl = "https://rebooted.biz/";
+    }
+
+    return ResponseEntity.ok(checkoutUrl);
   }
 }

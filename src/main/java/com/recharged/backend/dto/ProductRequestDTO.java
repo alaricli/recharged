@@ -1,10 +1,9 @@
 package com.recharged.backend.dto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductRequestDTO {
-    private String productName;
+    private String name;
     private String brand;
     private String condition;
     private String color;
@@ -13,21 +12,21 @@ public class ProductRequestDTO {
     private String notes;
     private String category;
     private String subCategory;
-    private BigDecimal unitCostCAD;
+    private Long unitCost;
+    private Long unitAmount;
     private Integer stock;
     private String sku;
     private String modelNumber;
     private String serialNumber;
     private List<String> tags;
     private List<String> productImages;
-    private List<StripePriceRequestDTO> stripePriceIds;
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String productName) {
+        this.name = productName;
     }
 
     public String getBrand() {
@@ -94,14 +93,6 @@ public class ProductRequestDTO {
         this.subCategory = subCategory;
     }
 
-    public BigDecimal getUnitCostCAD() {
-        return unitCostCAD;
-    }
-
-    public void setUnitCostCAD(BigDecimal unitCostCAD) {
-        this.unitCostCAD = unitCostCAD;
-    }
-
     public Integer getStock() {
         return stock;
     }
@@ -150,11 +141,20 @@ public class ProductRequestDTO {
         this.productImages = productImages;
     }
 
-    public List<StripePriceRequestDTO> getStripePriceIds() {
-        return stripePriceIds;
+    public Long getUnitCost() {
+        return unitCost;
     }
 
-    public void setStripePriceIds(List<StripePriceRequestDTO> stripePriceIds) {
-        this.stripePriceIds = stripePriceIds;
+    public void setUnitCost(Long unitCost) {
+        this.unitCost = unitCost;
     }
+
+    public Long getUnitAmount() {
+        return unitAmount;
+    }
+
+    public void setUnitAmount(Long unitAmount) {
+        this.unitAmount = unitAmount;
+    }
+
 }

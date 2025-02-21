@@ -2,9 +2,7 @@ package com.recharged.backend.service;
 
 import com.recharged.backend.dto.ProductRequestDTO;
 import com.recharged.backend.dto.SimpleProductResponseDTO;
-import com.recharged.backend.dto.StripePriceRequestDTO;
 import com.recharged.backend.entity.Product;
-import com.recharged.backend.entity.StripePriceObject;
 import com.recharged.backend.repository.ProductRepository;
 import com.recharged.backend.util.ProductRequestMapper;
 import com.recharged.backend.util.SimpleProductResponseMapper;
@@ -41,12 +39,11 @@ public class ProductService {
                 // Step 2: Create Stripe Product
                 stripeService.createStripeProduct(newProduct);
 
-                // Step 3: Create Stripe Prices
+                // Step 3: Create Stripe Price
                 stripeService.createStripePriceObject(newProduct);
 
                 // Step 4: Save the Product Again (with Stripe details updated)
                 newProduct = productRepository.save(newProduct);
-
                 newProducts.add(newProduct);
             } catch (Exception e) {
                 System.err.println("Failed to process product: " + e.getMessage());
@@ -59,13 +56,6 @@ public class ProductService {
 
     public Product addProduct(ProductRequestDTO requestDTO) {
         Product newProduct = ProductRequestMapper.map(requestDTO);
-
-        List<StripePriceRequestDTO> priceDTOs = requestDTO.getStripePriceIds();
-        if (priceDTOs != null && !priceDTOs.isEmpty()) {
-            List<StripePriceObject> priceObjects = mapPrices(priceDTOs, newProduct);
-            newProduct.setStripePriceIds(priceObjects);
-        }
-
         return productRepository.save(newProduct);
     }
 
@@ -89,23 +79,5 @@ public class ProductService {
             simpleProductResponseDTOS.add(productResponseDTO);
         }
         return simpleProductResponseDTOS;
-    }
-
-    private List<StripePriceObject> mapPrices(List<StripePriceRequestDTO> prices, Product product) {
-        List<StripePriceObject> newPriceObjects = new ArrayList<>();
-        for (StripePriceRequestDTO requestDTO : prices) {
-            StripePriceObject newPriceObject = mapPriceObject(requestDTO);
-            newPriceObject.setProduct(product);
-            newPriceObjects.add(newPriceObject);
-        }
-
-        return newPriceObjects;
-    }
-
-    private StripePriceObject mapPriceObject(StripePriceRequestDTO stripePriceObject) {
-        StripePriceObject newStripePriceObject = new StripePriceObject();
-        newStripePriceObject.setCurrency(stripePriceObject.getCurrency());
-        newStripePriceObject.setUnitAmount(stripePriceObject.getUnitAmount());
-        return newStripePriceObject;
     }
 }

@@ -10,7 +10,7 @@ public class ProductResponseMapper {
     public static ProductResponseDTO map(Product product) {
         ProductResponseDTO dto = new ProductResponseDTO();
         dto.setId(product.getId());
-        dto.setProductName(product.getName());
+        dto.setName(product.getName());
         dto.setBrand(product.getBrand());
         dto.setCondition(product.getCondition());
         dto.setColor(product.getColor());
@@ -19,7 +19,12 @@ public class ProductResponseMapper {
         dto.setNotes(product.getNotes());
         dto.setCategory(product.getCategory());
         dto.setSubCategory(product.getSubCategory());
-        dto.setUnitCostCAD(product.getUnitCostCAD());
+        dto.setUnitCost(product.getUnitCost());
+        dto.setUnitAmount(product.getUnitAmount());
+        dto.setStripeProductId(product.getStripeProductId());
+        dto.setStripePriceId(product.getStripePriceId());
+        dto.setStripeTaxCodeId(product.getStripeTaxCodeId());
+        dto.setStripeStatementDescription(product.getStripeStatementDescription());
         dto.setStock(product.getStock());
         dto.setSku(product.getSku());
         dto.setModelNumber(product.getModelNumber());

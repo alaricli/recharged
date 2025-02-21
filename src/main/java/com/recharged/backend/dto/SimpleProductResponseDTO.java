@@ -1,15 +1,12 @@
 package com.recharged.backend.dto;
 
-import java.math.BigDecimal;
-
 public class SimpleProductResponseDTO {
-    private String id;
     private String sku;
     private String productName;
     private String brand;
     private String blurb;
     private String mainImage;
-    private BigDecimal unitPrice;
+    private String stripePriceId;
 
     public String getSku() {
         return sku;
@@ -51,20 +48,12 @@ public class SimpleProductResponseDTO {
         this.mainImage = mainImage;
     }
 
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
+    public String getStripePriceId() {
+        return stripePriceId;
     }
 
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setStripePriceId(String stripePriceId) {
+        this.stripePriceId = stripePriceId;
     }
 
 }

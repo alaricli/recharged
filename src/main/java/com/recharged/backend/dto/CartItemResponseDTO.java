@@ -8,7 +8,6 @@ public class CartItemResponseDTO {
   private String name;
   private String imageUrl;
   private Long quantity;
-  private Long price;
 
   public CartItemResponseDTO(CartItem cartItem) {
     this.id = cartItem.getId();
@@ -48,14 +47,6 @@ public class CartItemResponseDTO {
 
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
-  }
-
-  public Long getPrice() {
-    return price;
-  }
-
-  public void setPrice(Long price) {
-    this.price = price;
   }
 
   public Long getQuantity() {
