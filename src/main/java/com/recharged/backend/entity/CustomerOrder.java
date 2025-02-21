@@ -27,7 +27,6 @@ public class CustomerOrder {
   private String orderStatus;
   @CreationTimestamp
   private LocalDateTime created;
-  private Long orderSubTotal;
 
   public Long getId() {
     return id;
@@ -79,10 +78,6 @@ public class CustomerOrder {
 
   public Long getOrderSubTotal() {
     return orderItems.stream().mapToLong(item -> item.getProduct().getUnitAmount() * item.getQuantity()).sum();
-  }
-
-  public void setOrderSubTotal(Long orderSubTotal) {
-    this.orderSubTotal = orderSubTotal;
   }
 
 }

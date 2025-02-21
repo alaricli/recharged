@@ -22,7 +22,6 @@ public class Cart {
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<CartItem> cartItems = new ArrayList<>();
   private LocalDateTime lastUpdatedDateTime;
-  private Long cartSubTotal;
 
   public Long getId() {
     return id;
@@ -63,10 +62,6 @@ public class Cart {
 
   public Long getCartSubTotal() {
     return cartItems.stream().mapToLong(item -> item.getProduct().getUnitAmount() * item.getQuantity()).sum();
-  }
-
-  public void setCartSubTotal(Long cartSubTotal) {
-    this.cartSubTotal = cartSubTotal;
   }
 
 }
