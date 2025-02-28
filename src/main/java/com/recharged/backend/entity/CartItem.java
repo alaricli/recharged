@@ -11,7 +11,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class CartItem {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @ManyToOne
   @JoinColumn(name = "cart_id", nullable = false)

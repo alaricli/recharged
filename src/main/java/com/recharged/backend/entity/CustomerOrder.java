@@ -17,7 +17,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class CustomerOrder {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @OneToOne
   private Customer customer;
