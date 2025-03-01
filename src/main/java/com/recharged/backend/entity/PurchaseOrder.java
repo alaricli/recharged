@@ -15,12 +15,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class CustomerOrder {
+public class PurchaseOrder {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @OneToOne
-  private Customer customer;
+  private LocalUser user;
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItem> orderItems = new ArrayList<>();
   private String stripeSessionId;
@@ -36,12 +36,12 @@ public class CustomerOrder {
     this.id = id;
   }
 
-  public Customer getCustomer() {
-    return customer;
+  public LocalUser getUser() {
+    return user;
   }
 
-  public void setCustomer(Customer customer) {
-    this.customer = customer;
+  public void setUser(LocalUser user) {
+    this.user = user;
   }
 
   public List<OrderItem> getOrderItems() {

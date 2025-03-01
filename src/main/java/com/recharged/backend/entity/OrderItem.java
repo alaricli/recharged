@@ -16,7 +16,7 @@ public class OrderItem {
 
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false)
-  private CustomerOrder customerOrder;
+  private PurchaseOrder order;
 
   @OneToOne
   @JoinColumn(name = "product_id", nullable = false)
@@ -31,12 +31,12 @@ public class OrderItem {
     this.id = id;
   }
 
-  public CustomerOrder getCustomerOrder() {
-    return customerOrder;
+  public PurchaseOrder getOrder() {
+    return order;
   }
 
-  public void setCustomerOrder(CustomerOrder customerOrder) {
-    this.customerOrder = customerOrder;
+  public void setOrder(PurchaseOrder order) {
+    this.order = order;
   }
 
   public Product getProduct() {

@@ -1,6 +1,6 @@
 package com.recharged.backend.dto;
 
-public class CustomerAuthenticationRequestDTO {
+public class UserAuthenticationRequestDTO {
   private String username;
   private String password;
 

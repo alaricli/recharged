@@ -18,7 +18,7 @@ public class Cart {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @OneToOne
-  private Customer customer;
+  private LocalUser user;
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<CartItem> cartItems = new ArrayList<>();
   private LocalDateTime lastUpdatedDateTime;
@@ -31,12 +31,12 @@ public class Cart {
     this.id = id;
   }
 
-  public Customer getCustomer() {
-    return customer;
+  public LocalUser getUser() {
+    return user;
   }
 
-  public void setCustomer(Customer customer) {
-    this.customer = customer;
+  public void setUser(LocalUser user) {
+    this.user = user;
   }
 
   public List<CartItem> getCartItems() {

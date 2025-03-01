@@ -84,4 +84,15 @@ public class JwtService {
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
     return Keys.hmacShaKeyFor(keyBytes);
   }
+
+  /**
+   * Generates an admin token with a very long expiration time (10 years)
+   * This should only be used for testing purposes
+   */
+  public String generateLongLivedAdminToken(UserDetails userDetails) {
+    Map<String, Object> extraClaims = new HashMap<>();
+    // Add 10 years expiration (in milliseconds)
+    long tenYearsInMillis = 10L * 365 * 24 * 60 * 60 * 1000;
+    return buildToken(extraClaims, userDetails, tenYearsInMillis);
+  }
 }

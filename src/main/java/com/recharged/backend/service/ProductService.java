@@ -1,12 +1,17 @@
 package com.recharged.backend.service;
 
 import com.recharged.backend.dto.ProductRequestDTO;
+import com.recharged.backend.dto.ProductResponseDTO;
 import com.recharged.backend.dto.SimpleProductResponseDTO;
 import com.recharged.backend.entity.Product;
 import com.recharged.backend.repository.ProductRepository;
 import com.recharged.backend.util.ProductRequestMapper;
+import com.recharged.backend.util.ProductResponseMapper;
 import com.recharged.backend.util.SimpleProductResponseMapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,16 +64,18 @@ public class ProductService {
         return productRepository.save(newProduct);
     }
 
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
     public Product findById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    public Product findBySku(String sku) {
-        return productRepository.findBySku(sku).orElse(null);
-    }
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public ProductResponseDTO findBySku(String sku) {
+        return productRepository.findBySku(sku)
+                .map(ProductResponseMapper::map)
+                .orElse(null);
     }
 
     public List<SimpleProductResponseDTO> findAllByCategory(String category) {
@@ -79,5 +86,18 @@ public class ProductService {
             simpleProductResponseDTOS.add(productResponseDTO);
         }
         return simpleProductResponseDTOS;
+    }
+
+    public Page<SimpleProductResponseDTO> findAllByCategoryPaginated(
+            String category, int page, int size) {
+
+        // Create a Pageable object with pagination parameters
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Get a page of products from the repository
+        Page<Product> productPage = productRepository.findAllByCategory(category, pageable);
+
+        // Convert Page<Product> to Page<SimpleProductResponseDTO>
+        return productPage.map(product -> SimpleProductResponseMapper.toSimpleProductResponse(product));
     }
 }
